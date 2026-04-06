@@ -1,5 +1,0 @@
-{
-  "name": "review-pr",
-  "displayName": "Review PR",
-  "description": "Revisa el código de un Pull Request de Bitbucket y publica inline comments con sugerencias directamente en el PR"
-}

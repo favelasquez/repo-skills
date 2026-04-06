@@ -1,5 +1,0 @@
-{
-  "name": "update-repo",
-  "displayName": "Update Repository",
-  "description": "Sincroniza README.md y glosario.md con todos los skills registrados en el ecosistema"
-}

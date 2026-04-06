@@ -1,6 +1,6 @@
 ---
 name: review-pr
-description: Revisa el código de un Pull Request de Bitbucket y publica inline comments con sugerencias directamente en el PR
+description: Revisa el código de un Pull Request de GitHub y publica inline comments con sugerencias directamente en el PR
 license: Apache-2.0
 metadata:
   author: transportationamerica-setup
@@ -8,7 +8,7 @@ metadata:
 scope:
   - git
   - pr
-  - bitbucket
+  - github
   - review
 permissions:
   allow:
@@ -19,25 +19,25 @@ permissions:
     - database
 ---
 
-# Review PR v1 — Bitbucket Inline Code Review
+# Review PR v1 — GitHub Inline Code Review
 
-Eres un experto en revisión de código. Cuando el usuario invoque este skill, **debes analizar los cambios del Pull Request y publicar inline comments directamente en Bitbucket**.
+Eres un experto en revisión de código. Cuando el usuario invoque este skill, **debes analizar los cambios del Pull Request y publicar inline comments directamente en GitHub**.
 
 ## Reglas estrictas (reducción de tokens)
 
 - ✅ **Solo publica comentarios inline** en el PR. No modificar repos, no crear issues, no cambiar código.
-- ✅ **Token check CRÍTICO:** Si TOKEN_LEN = 0, avisa: "Activa Atlassian/Atlascode en VS Code" y **detén inmediatamente**.
-- ✅ **Filtrar el diff crudo localmente:** El diff bajado por `curl` puede ser gigante; debes excluir archivos innecesarios de la lectura e inyectar en tu prompt ÚNICAMENTE el código añadido (`+`) con su contexto, nunca el diff completo de golpe.
-- ✅ **Límites obligatorios:** máximo 120 tokens por comentario. No hay límite estricto del número de comentarios, pero si hay múltiples hallazgos (ej. > 15), agrupa peticiones o aumenta el tiempo de espera (sleep) para no saturar la API de Bitbucket (rate limits). Prioriza siempre la severidad.
+- ✅ **Token check CRÍTICO:** Si no hay sesión iniciada en `gh`, avisa: "Inicia sesión con `gh auth login`" y **detén inmediatamente**.
+- ✅ **Filtrar el diff crudo localmente:** El diff bajado por `gh` puede ser gigante; debes excluir archivos innecesarios de la lectura e inyectar en tu prompt ÚNICAMENTE el código añadido (`+`) con su contexto, nunca el diff completo de golpe.
+- ✅ **Límites obligatorios:** máximo 120 tokens por comentario. No hay límite estricto del número de comentarios, pero si hay múltiples hallazgos (ej. > 15), agrupa peticiones o aumenta el tiempo de espera (sleep) para no saturar la API de GitHub (rate limits). Prioriza siempre la severidad.
 - ✅ **Analizar solo código útil** — excluir siempre `.test.`, `.spec.`, `node_modules`, `dist`, `.json`, `.md`, `.svg`, lockfiles y binarios.
 - ✅ **Español, conciso.** Usar siempre el formato obligatorio definido en la sección "Formato de Comentario (Obligatorio)".
 - ✅ **Publicar secuencialmente** con `node`, esperando respuesta de cada POST.
-- ✅ **Restricción de red:** solo `api.bitbucket.org`. No descargas arbitrarias.
+- ✅ **Restricción de red:** solo API de GitHub a través del CLI `gh`. No descargas arbitrarias.
 - ✅ **No duplicados:** antes de publicar, omitir comentarios repetidos por `(path, line, hash(texto_normalizado))`.
-- ✅ **Seguridad de secretos:** nunca imprimir TOKEN ni header `Authorization` en logs/salida.
+- ✅ **Seguridad de secretos:** nunca imprimir tokens ni headers de autenticación en logs/salida.
 
 **Plantilla de sistema (usar exactamente):**
-> Eres un agente silencioso: no narres ni expliques en el chat los pasos intermedios (como detección de stack, parsing de diff o escritura de variables). Trabaja completamente en silencio usando tus herramientas y muestra ÚNICAMENTE el reporte final ejecutivo al usuario una vez que todos los comentarios hayan sido publicados en Bitbucket de forma invisible. Limita cada comentario a máximo 120 tokens. Si TOKEN_LEN=0, detén y avisa.
+> Eres un agente silencioso: no narres ni expliques en el chat los pasos intermedios (como detección de stack, parsing de diff o escritura de variables). Trabaja completamente en silencio usando tus herramientas y muestra ÚNICAMENTE el reporte final ejecutivo al usuario una vez que todos los comentarios hayan sido publicados en GitHub de forma invisible. Limita cada comentario a máximo 120 tokens. Si no hay CLI `gh` logueado, detén y avisa.
 
 ## Flujo Exacto (Determinístico y Eficiente)
 
@@ -48,27 +48,15 @@ Antes de solicitar contexto de PR o leer cualquier código, invoca SILENCIOSAMEN
 **OBLIGATORIO:** No adivines ni inventes reglas genéricas de buenas prácticas. Una vez detectado el Stack, DEBES usar tu herramienta designada o conocimiento de skills para consultar el contenido exacto de la skill resultante (por ejemplo `angular-mid-review`, `csharp-ef-audit`, `laravel-audit`). Te basarás única y **estrictamente en el contenido de esa skill** para hacer la validación del código; la omisión de este chequeo derivará en reportes genéricos inaceptables.
 
 #### 1.1 - Validar contexto (Proceso Silencioso)
-- PR ID (número)
-- Repositorio (ej: trip2_front)
+- PR ID (número) o rama activa.
 - Lenguaje (opcional, default: Angular)
-- Workspace: siempre `walzate1`
+*(Las rutas y el repositorio ya las determina el GitHub CLI / context)*
 
-#### 1.2 - Obtener token una sola vez
+#### 1.2 - Validar autenticación de GitHub (con gh, no con node)
 ```bash
-TOKEN=$(printf "protocol=https\nhost=bitbucket.org\n" | git credential fill 2>/dev/null | grep ^password | sed 's/^password=//')
+gh auth status
 ```
-
-**Si TOKEN_LEN = 0:** Detener inmediatamente.
-```
-❌ Token no disponible. Activa Atlassian (Atlascode) en VS Code y reintenta.
-```
-
-#### 1.3 - Validar token (con curl, no con node)
-```bash
-curl -s -H "Authorization: Bearer ${TOKEN}" https://api.bitbucket.org/2.0/user | head -c 100
-```
-
-**Si error 401:** Solicitar al usuario que re-autentique.
+**Si falla:** Detener inmediatamente y solicitar al usuario que ejecute `gh auth login`.
 
 ### Fase 2: Obtener Diff y Metadata (Único GET)
 
@@ -79,20 +67,14 @@ Antes de procesar, utiliza tu herramienta `mem_search` para buscar en la memoria
 
 #### 2.1 - Obtener metadata del PR
 ```bash
-curl -L -s -H "Authorization: Bearer ${TOKEN}" \
-  "https://api.bitbucket.org/2.0/repositories/walzate1/${REPO}/pullrequests/${PR_ID}" \
-  -o pr_meta.json
+gh pr view ${PR_ID} --json title,author,state,headRefName,headRefOid > pr_meta.json
 ```
+Validar que existe y extraer: titulo, autor, estado, rama origen, y commit hash oculto (headRefOid).
 
-Validar que existe y extraer: titulo, autor, estado, rama origen.
-
-#### 2.2 - Obtener DIFF completo (con -L para seguir redirects)
+#### 2.2 - Obtener DIFF completo
 ```bash
-curl -L -s -H "Authorization: Bearer ${TOKEN}" \
-  "https://api.bitbucket.org/2.0/repositories/walzate1/${REPO}/pullrequests/${PR_ID}/diff" \
-  -o pr_diff.txt
+gh pr diff ${PR_ID} > pr_diff.txt
 ```
-
 **CRÍTICO:** Este es el único diff que necesitas. No hacer requests adicionales.
 
 ### Fase 3: Parsear Diff (LOCAL, sin red)
@@ -111,8 +93,8 @@ curl -L -s -H "Authorization: Bearer ${TOKEN}" \
      - Si la línea empieza con `-`, es código eliminado. **NO** modifiques `linea_actual`.
      - Si la línea empieza con `+`, es código añadido/modificado. **ESTA ES LÍNEA VÁLIDA PARA COMENTAR.** El valor en `inline.to` es `linea_actual`. Luego haz `linea_actual++`.
 
-3. **Regla de ORO de Bitbucket:**
-   Solo genera comentarios para líneas exactas que en el Diff empiezan con `+`. Si comentas en una línea de contexto espacial o eliminada, Bitbucket dejará el comentario huérfano (File-level) y no se verá en la vista del Diff. Guardar: `{ archivo, línea_exacta, código }`.
+3. **Regla de ORO de GitHub:**
+   Solo genera comentarios para líneas exactas que en el Diff empiezan con `+`. Si comentas en una línea de contexto espacial o eliminada, GitHub puede rechazar el request o dejar el comentario desfasado. Guardar: `{ archivo, línea_exacta, código, commit_id }`.
 
 **Resultado:** Array de comentarios candidatos con línea EXACTA.
 
@@ -125,7 +107,7 @@ Para cada cambio:
 4. Publicar por defecto solo severidad Alta/Media
 5. Severidad Baja solo si hay cupo y tiene acción concreta
 
-**Sin límite estricto de comentarios.** Sin embargo, prioriza documentar primero los críticos. Si el PR es excesivamente grande y detectas gran volumen de sugerencias, procesalas secuencialmente prestando particular atención al manejo de códigos HTTP 429 para frenar o hacer sleep de varios segundos y así proteger la integridad de las cargas sin causar error por rate-limiting de Bitbucket.
+**Sin límite estricto de comentarios.** Sin embargo, prioriza documentar primero los críticos. Si el PR es excesivamente grande y detectas gran volumen de sugerencias, procesalas secuencialmente prestando particular atención al manejo de códigos HTTP 429 para frenar o hacer sleep de varios segundos y así proteger la integridad de las cargas sin causar error por rate-limiting de GitHub.
 
 **Reglas Acopladas por Stack (CRÍTICAS):**
 Al realizar el análisis del código, **ESTÁS OBLIGADO A LEER Y APOYARTE EN LAS REGLAS EXACTAS DE LA SKILL DE AUDITORÍA DETECTADA** en el Paso 1.0 (ej. bugs comunes de N+1 en `laravel-audit`, convenciones de .NET/EF Core de `csharp-ef-audit`, reglas de `angular-mid-review`, bloqueos de event loops de `fastapi-audit`). **ESTÁ PROHIBIDO** que emitas recomendaciones genéricas de la industria. Si ves que estás a punto de dar un consejo como "Modulariza tu código" o "Nombra mejor las variables", detente; el feedback DEBE estar anclado en las reglas específicas de la skill que aplicaste para la versión detectada. No asumas buenas prácticas súper modernas si el stack detector confirmó que es una versión legacy (o viceversa).
@@ -134,52 +116,28 @@ Al realizar el análisis del código, **ESTÁS OBLIGADO A LEER Y APOYARTE EN LAS
 
 **Compatibilidad Windows + ESM obligatoria:**
 1. **PROHIBIDO usar `node -e` con scripts largos o interpolaciones complejas.**
-2. Siempre crear un archivo `post_comments.cjs` (forzar CommonJS en repositorios con `"type": "module"`).
+2. Siempre crear un script shell/batch o ejecutar `gh api` directamente en secuencial.
 3. No usar `/tmp`. Usar el directorio local `.claude_tmp/` creado bajo demanda.
-4. Serializar todo el payload y comentarios en un archivo `.json` para que Node lo lea directamente con `fs.readFileSync`. Nunca pasar JSON complejo o comentarios por variable de bash ni por interpolación de template strings.
-5. Limpiar todos los `.cjs`, `.json` y archivos `.txt` en bloque de salida sin fallar si no existen.
+4. Si creas JSON, serializar todo el payload y comentarios en un archivo `.json` iterativo.
+5. Limpiar todos los archivos temporales en bloque de salida sin fallar si no existen.
 
 **ANTES de publicar:**
 1. ✅ Validar que línea existe en archivo (>0) y cae en rango de hunk añadido/modificado
 2. ✅ Validar que archivo no es test/spec/dist
 3. ✅ Validar que comentario cumple el formato obligatorio y ≤ 120 tokens
-4. ✅ Validar payload JSON mínimo: `content.raw` (string), `inline.path` (string), `inline.to` (int > 0)
-5. ✅ Consultar comentarios existentes y omitir duplicados exactos
+4. ✅ Consultar comentarios existentes y omitir duplicados exactos
 
-**Script de publicación:**
+**Script de publicación (con gh CLI):**
 
-```javascript
-// Pseudocódigo JavaScript
-for (cada comentario validado) {
-  // Nunca imprimir TOKEN ni headers de autenticación
-  const body = JSON.stringify({
-    content: { raw: comentario.texto },
-    inline: { to: comentario.linea, path: comentario.archivo }
-  });
+```bash
+# Iterar por cada comentario validado y ejecutar:
+gh api repos/{owner}/{repo}/pulls/${PR_ID}/comments \
+  -f body="texto_del_comentario" \
+  -f commit_id="headRefOid" \
+  -f path="ruta/del/archivo" \
+  -f line=123
 
-  const resp = POST /2.0/repositories/walzate1/${repo}/pullrequests/${pr}/comments
-  headers: { Authorization: Bearer ${TOKEN}, Content-Type: application/json }
-  body: body
-
-  if (resp.statusCode === 201) {
-    console.log("✅ " + archivo + ":" + linea);
-    publicados++;
-  } else if (resp.statusCode === 429) {
-    // Rate limit: backoff acotado. Lee el header Retry-After o espera 5000ms.
-    esperar(5000ms);
-    reintentar();
-  } else if (resp.statusCode === 400) {
-    // Línea inválida o ya existe comentario
-    console.log("⚠️ " + archivo + ":" + linea + " (línea no válida)");
-    fallidos++;
-  } else {
-    console.log("❌ Error " + resp.statusCode);
-    fallidos++;
-  }
-
-  // Esperar un margen de seguridad entre POSTs para no disparar el Rate Limit preventivamente
-  sleep(500ms);
-}
+# Chequear $? == 0. Si falla (429 Rate Limit, 422 Unprocessable), registrar y continuar con sleep.
 ```
 
 ### Fase 6: Cleanup y Limpieza (CRÍTICO)
