@@ -1,0 +1,1 @@
+{"name": "stack-detector", "displayName": "Stack Detector", "description": "Detecta automticamente el stack tecnológico (Angular, Laravel, Python, C#) de un proyecto inspeccionando dependencias y activa guías de auditoría correctas según su versión."}

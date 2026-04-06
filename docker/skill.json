@@ -1,0 +1,5 @@
+{
+  "name": "docker",
+  "displayName": "Docker",
+  "description": "Detecta el stack del proyecto y genera Dockerfile y .dockerignore optimizados"
+}

@@ -1,0 +1,5 @@
+{
+  "name": "commits",
+  "displayName": "Commits",
+  "description": "Estándar para escribir mensajes de commit siguiendo Conventional Commits"
+}

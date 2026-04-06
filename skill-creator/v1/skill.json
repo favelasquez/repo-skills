@@ -1,0 +1,17 @@
+{
+  "version": "v1",
+  "scope": [
+    "skills",
+    "mcp",
+    "documentation"
+  ],
+  "permissions": {
+    "allow": [
+      "filesystem",
+      "git"
+    ],
+    "deny": [
+      "database"
+    ]
+  }
+}

@@ -1,0 +1,1 @@
+{"version": "v1", "scope": ["angular", "frontend", "legacy"], "permissions": {"allow": ["filesystem"], "deny": []}}

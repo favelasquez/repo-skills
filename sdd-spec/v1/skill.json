@@ -1,0 +1,19 @@
+{
+  "version": "v1",
+  "scope": [
+    "sdd",
+    "specs",
+    "requirements",
+    "scenarios",
+    "bdd"
+  ],
+  "permissions": {
+    "allow": [
+      "filesystem",
+      "git"
+    ],
+    "deny": [
+      "database"
+    ]
+  }
+}

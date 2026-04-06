@@ -1,0 +1,8 @@
+{
+  "version": "v1",
+  "scope": ["git", "gitignore", "cleanup", "filesystem"],
+  "permissions": {
+    "allow": ["filesystem", "repositories"],
+    "deny": ["database"]
+  }
+}

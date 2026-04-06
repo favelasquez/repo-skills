@@ -1,0 +1,5 @@
+{
+  "name": "resolve-conflicts",
+  "displayName": "Resolve Conflicts",
+  "description": "Resuelve conflictos de merge en el archivo abierto, preservando los cambios entrantes como base y adicionando los cambios de la rama actual"
+}

@@ -1,0 +1,5 @@
+{
+  "name": "sdd-design",
+  "displayName": "SDD Design",
+  "description": "Create technical design document with architecture decisions and approach. Sub-agent for the SDD workflow that produces design.md from proposal and specs."
+}

@@ -1,0 +1,18 @@
+{
+  "version": "v1",
+  "scope": [
+    "git",
+    "merge",
+    "conflicts",
+    "pr"
+  ],
+  "permissions": {
+    "allow": [
+      "filesystem",
+      "git"
+    ],
+    "deny": [
+      "database"
+    ]
+  }
+}

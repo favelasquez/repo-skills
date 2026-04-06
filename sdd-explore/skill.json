@@ -1,0 +1,5 @@
+{
+  "name": "sdd-explore",
+  "displayName": "SDD Explore",
+  "description": "Explore and investigate ideas before committing to a change. Sub-agent for the SDD workflow that researches the codebase and compares approaches before a proposal is created."
+}

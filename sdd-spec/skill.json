@@ -1,0 +1,5 @@
+{
+  "name": "sdd-spec",
+  "displayName": "SDD Spec",
+  "description": "Write specifications with requirements and scenarios (delta specs for changes). Sub-agent for the SDD workflow that produces spec.md from the proposal."
+}

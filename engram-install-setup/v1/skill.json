@@ -1,0 +1,1 @@
+{"version": "v1", "scope": ["engram", "setup"], "permissions": {"allow": ["filesystem", "network"], "deny": []}}

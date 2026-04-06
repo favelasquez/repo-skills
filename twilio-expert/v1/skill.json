@@ -1,0 +1,1 @@
+{"version": "v1", "scope": ["twilio", "communications", "backend"], "permissions": {"allow": ["filesystem", "network"], "deny": []}}

@@ -1,0 +1,5 @@
+{
+  "name": "sdd-archive",
+  "displayName": "SDD Archive",
+  "description": "Sync delta specs to main specs and archive a completed change. Sub-agent that completes the SDD cycle after implementation and verification."
+}

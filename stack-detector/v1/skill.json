@@ -1,0 +1,1 @@
+{"version": "v1", "scope": ["detector", "audit", "architecture"], "permissions": {"allow": ["filesystem"], "deny": []}}

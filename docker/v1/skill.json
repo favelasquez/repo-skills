@@ -1,0 +1,8 @@
+{
+  "version": "v1",
+  "scope": ["docker", "dockerfile", "devops", "containers"],
+  "permissions": {
+    "allow": ["filesystem", "repositories"],
+    "deny": ["database"]
+  }
+}

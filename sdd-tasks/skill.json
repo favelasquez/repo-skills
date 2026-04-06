@@ -1,0 +1,5 @@
+{
+  "name": "sdd-tasks",
+  "displayName": "SDD Tasks",
+  "description": "Break down a change into an implementation task checklist. Sub-agent for the SDD workflow that produces tasks.md from proposal, specs, and design."
+}

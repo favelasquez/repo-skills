@@ -1,0 +1,5 @@
+{
+  "name": "gitignore-cleaner",
+  "displayName": "Gitignore Cleaner",
+  "description": "Analiza el proyecto, detecta carpetas innecesarias (build, cache, dependencias, temporales) y las agrega al .gitignore"
+}

@@ -1,0 +1,5 @@
+{
+  "name": "sdd-apply",
+  "displayName": "SDD Apply",
+  "description": "Implement tasks from the change, writing actual code following the specs and design. Sub-agent for the SDD workflow that executes implementation tasks."
+}

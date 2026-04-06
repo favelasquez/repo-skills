@@ -1,0 +1,8 @@
+{
+  "version": "v32",
+  "scope": ["ag-grid", "angular", "react"],
+  "permissions": {
+    "allow": ["http", "repositories"],
+    "deny": ["filesystem", "database"]
+  }
+}

@@ -1,0 +1,5 @@
+{
+  "name": "sdd-init",
+  "displayName": "SDD Init",
+  "description": "Initialize Spec-Driven Development context in any project. Detects stack, conventions, and bootstraps the active persistence backend."
+}

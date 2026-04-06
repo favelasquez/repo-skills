@@ -1,0 +1,20 @@
+{
+  "version": "v1",
+  "scope": [
+    "sdd",
+    "init",
+    "setup",
+    "openspec",
+    "project-context"
+  ],
+  "permissions": {
+    "allow": [
+      "filesystem",
+      "git",
+      "shell"
+    ],
+    "deny": [
+      "database"
+    ]
+  }
+}

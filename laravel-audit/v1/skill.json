@@ -1,0 +1,1 @@
+{"version": "v1", "scope": ["laravel", "php", "backend"], "permissions": {"allow": ["filesystem"], "deny": []}}

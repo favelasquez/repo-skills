@@ -1,0 +1,5 @@
+{
+  "name": "sdd-verify",
+  "displayName": "SDD Verify",
+  "description": "Validate that implementation matches specs, design, and tasks. Quality gate sub-agent for the SDD workflow."
+}

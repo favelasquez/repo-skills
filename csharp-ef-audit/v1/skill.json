@@ -1,0 +1,1 @@
+{"version": "v1", "scope": ["csharp", "dotnet", "ef"], "permissions": {"allow": ["filesystem"], "deny": []}}

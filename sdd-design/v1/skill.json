@@ -1,0 +1,18 @@
+{
+  "version": "v1",
+  "scope": [
+    "sdd",
+    "design",
+    "architecture",
+    "technical-design"
+  ],
+  "permissions": {
+    "allow": [
+      "filesystem",
+      "git"
+    ],
+    "deny": [
+      "database"
+    ]
+  }
+}

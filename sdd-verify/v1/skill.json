@@ -1,0 +1,20 @@
+{
+  "version": "v1",
+  "scope": [
+    "sdd",
+    "verification",
+    "testing",
+    "quality",
+    "specs"
+  ],
+  "permissions": {
+    "allow": [
+      "filesystem",
+      "git",
+      "shell"
+    ],
+    "deny": [
+      "database"
+    ]
+  }
+}

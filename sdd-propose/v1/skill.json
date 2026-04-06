@@ -1,0 +1,18 @@
+{
+  "version": "v1",
+  "scope": [
+    "sdd",
+    "proposal",
+    "planning",
+    "change-management"
+  ],
+  "permissions": {
+    "allow": [
+      "filesystem",
+      "git"
+    ],
+    "deny": [
+      "database"
+    ]
+  }
+}

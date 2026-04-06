@@ -1,0 +1,1 @@
+{"version": "v1", "scope": ["fastapi", "python", "backend"], "permissions": {"allow": ["filesystem"], "deny": []}}

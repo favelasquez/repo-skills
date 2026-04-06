@@ -1,0 +1,5 @@
+{
+  "name": "sdd-propose",
+  "displayName": "SDD Propose",
+  "description": "Create a change proposal with intent, scope, and approach. Sub-agent for the SDD workflow that produces proposal.md from exploration analysis or user input."
+}
