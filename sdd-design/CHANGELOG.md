@@ -1,4 +1,4 @@
-﻿# Registro de Versiones (Changelog) - SDD Design
+# Registro de Versiones (Changelog) - SDD Design
 
 ## v1
 **Funcionalidad principal actual:**

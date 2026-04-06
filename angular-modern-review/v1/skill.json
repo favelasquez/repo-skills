@@ -1,8 +1,8 @@
-﻿{
+{
   "name": "angular-modern-review",
   "version": "1.0",
   "metadata": {
     "author": "https://github.com/favelasquez",
-    "description": "Skill para auditar cÃ³digo Angular Moderno (v13+). Reglas sobre Signals, control flow, inject(), standalone components."
+    "description": "Skill para auditar código Angular Moderno (v13+). Reglas sobre Signals, control flow, inject(), standalone components."
   }
 }

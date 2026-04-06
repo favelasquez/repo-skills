@@ -1,4 +1,4 @@
-﻿---
+---
 name: sdd-explore
 description: >
   Explore and investigate ideas before committing to a change.

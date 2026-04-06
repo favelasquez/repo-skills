@@ -1,4 +1,4 @@
-﻿# Registro de Versiones (Changelog) - Gitignore Cleaner
+# Registro de Versiones (Changelog) - Gitignore Cleaner
 
 ## v1
 **Funcionalidad principal actual:**

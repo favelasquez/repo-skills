@@ -1,4 +1,4 @@
-﻿# Registro de Versiones (Changelog) - Twilio Expert
+# Registro de Versiones (Changelog) - Twilio Expert
 
 ## v1
 **Funcionalidad principal actual:**

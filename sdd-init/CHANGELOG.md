@@ -1,4 +1,4 @@
-﻿# Registro de Versiones (Changelog) - SDD Init
+# Registro de Versiones (Changelog) - SDD Init
 
 ## v1
 **Funcionalidad principal actual:**

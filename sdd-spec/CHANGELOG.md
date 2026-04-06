@@ -1,4 +1,4 @@
-﻿# Registro de Versiones (Changelog) - SDD Spec
+# Registro de Versiones (Changelog) - SDD Spec
 
 ## v1
 **Funcionalidad principal actual:**

@@ -1,4 +1,4 @@
-﻿---
+---
 name: sdd-tasks
 description: >
   Break down a change into an implementation task checklist.

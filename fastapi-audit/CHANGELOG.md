@@ -1,4 +1,4 @@
-﻿# Registro de Versiones (Changelog) - FastAPI Audit
+# Registro de Versiones (Changelog) - FastAPI Audit
 
 ## v1
 **Funcionalidad principal actual:**

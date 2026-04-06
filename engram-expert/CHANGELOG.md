@@ -1,4 +1,4 @@
-﻿# Registro de Versiones (Changelog) - Engram Expert
+# Registro de Versiones (Changelog) - Engram Expert
 
 ## v1
 **Funcionalidad principal actual:**

@@ -1,4 +1,4 @@
-﻿# Registro de Versiones (Changelog) - SDD Tasks
+# Registro de Versiones (Changelog) - SDD Tasks
 
 ## v1
 **Funcionalidad principal actual:**

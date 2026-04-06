@@ -1,4 +1,4 @@
-﻿# Registro de Versiones (Changelog) - SDD Apply
+# Registro de Versiones (Changelog) - SDD Apply
 
 ## v1
 **Funcionalidad principal actual:**

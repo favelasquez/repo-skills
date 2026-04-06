@@ -1,4 +1,4 @@
-﻿# Registro de Versiones (Changelog) - Commits
+# Registro de Versiones (Changelog) - Commits
 
 ## v1
 **Funcionalidad principal actual:**

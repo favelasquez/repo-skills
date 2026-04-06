@@ -1,4 +1,4 @@
-﻿# Registro de Versiones (Changelog) - Docker
+# Registro de Versiones (Changelog) - Docker
 
 ## v1
 **Funcionalidad principal actual:**

@@ -1,4 +1,4 @@
-﻿# Registro de Versiones (Changelog) - SDD Explore
+# Registro de Versiones (Changelog) - SDD Explore
 
 ## v1
 **Funcionalidad principal actual:**

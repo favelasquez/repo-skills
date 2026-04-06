@@ -1,4 +1,4 @@
-﻿# Registro de Versiones (Changelog) - Skill Creator
+# Registro de Versiones (Changelog) - Skill Creator
 
 ## v1
 **Funcionalidad principal actual:**

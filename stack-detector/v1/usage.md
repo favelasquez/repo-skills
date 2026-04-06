@@ -1,4 +1,4 @@
-﻿---
+---
 metadata:
   author: https://github.com/favelasquez
 name: stack-detector

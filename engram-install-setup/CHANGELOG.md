@@ -1,4 +1,4 @@
-﻿# Registro de Versiones (Changelog) - Engram Install Setup
+# Registro de Versiones (Changelog) - Engram Install Setup
 
 ## v1
 **Funcionalidad principal actual:**

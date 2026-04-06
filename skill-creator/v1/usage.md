@@ -1,4 +1,4 @@
-﻿---
+---
 name: skill-creator
 description: >
   Creates new AI agent skills following the Agent Skills spec.
@@ -42,24 +42,24 @@ Primero verifica si existe `src/skills/` en el directorio actual:
 ls src/skills 2>/dev/null && echo "REPO_OK" || echo "REPO_NOT_FOUND"
 ```
 
-- Si existe `src/skills/` â†’ crear la skill en `src/skills/{skill-name}/` siguiendo la convenciÃ³n MCP
-- Si NO existe â†’ crear la skill en `.claude/skills/{skill-name}/` como fallback local
+- Si existe `src/skills/` �  crear la skill en `src/skills/{skill-name}/` siguiendo la convención MCP
+- Si NO existe �  crear la skill en `.claude/skills/{skill-name}/` como fallback local
 
 ### Estructura MCP (`src/skills/`)
 
 ```
 src/skills/{skill-name}/
-â”œâ”€â”€ skill.json              # Root metadata
-â””â”€â”€ v1/
-    â”œâ”€â”€ skill.json          # Version metadata (scope, permissions)
-    â””â”€â”€ usage.md            # This file â€” full skill instructions
+�S���� skill.json              # Root metadata
+����� v1/
+    �S���� skill.json          # Version metadata (scope, permissions)
+    ����� usage.md            # This file � full skill instructions
 ```
 
 ### Estructura fallback (`.claude/skills/`)
 
 ```
 .claude/skills/{skill-name}/
-â””â”€â”€ SKILL.md                # Single file with frontmatter + instructions
+����� SKILL.md                # Single file with frontmatter + instructions
 ```
 
 ---
@@ -118,11 +118,11 @@ metadata:
 ## Decision: assets/ vs references/
 
 ```
-Need code templates?        â†’ assets/
-Need JSON schemas?          â†’ assets/
-Need example configs?       â†’ assets/
-Link to existing docs?      â†’ references/
-Link to external guides?    â†’ references/ (with local path)
+Need code templates?        �  assets/
+Need JSON schemas?          �  assets/
+Need example configs?       �  assets/
+Link to existing docs?      �  references/
+Link to external guides?    �  references/ (with local path)
 ```
 
 **Key Rule**: `references/` should point to LOCAL files, not web URLs.

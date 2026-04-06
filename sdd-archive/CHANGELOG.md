@@ -1,4 +1,4 @@
-﻿# Registro de Versiones (Changelog) - SDD Archive
+# Registro de Versiones (Changelog) - SDD Archive
 
 ## v1
 **Funcionalidad principal actual:**

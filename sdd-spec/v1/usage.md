@@ -1,4 +1,4 @@
-﻿---
+---
 name: sdd-spec
 description: >
   Write specifications with requirements and scenarios (delta specs for changes).

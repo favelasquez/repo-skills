@@ -1,4 +1,4 @@
-﻿# Registro de Versiones (Changelog) - AG Grid
+# Registro de Versiones (Changelog) - AG Grid
 
 ## v1
 **Funcionalidad principal actual:**

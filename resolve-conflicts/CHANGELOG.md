@@ -1,4 +1,4 @@
-﻿# Registro de Versiones (Changelog) - Resolve Conflicts
+# Registro de Versiones (Changelog) - Resolve Conflicts
 
 ## v1
 **Funcionalidad principal actual:**

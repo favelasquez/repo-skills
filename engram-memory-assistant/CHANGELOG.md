@@ -1,4 +1,4 @@
-﻿# Registro de Versiones (Changelog) - Engram Memory Assistant
+# Registro de Versiones (Changelog) - Engram Memory Assistant
 
 ## v1
 **Funcionalidad principal actual:**

@@ -1,4 +1,4 @@
-﻿# Registro de Versiones (Changelog) - Deepgram Expert
+# Registro de Versiones (Changelog) - Deepgram Expert
 
 ## v1
 **Funcionalidad principal actual:**

@@ -1,4 +1,4 @@
-﻿# Registro de Versiones (Changelog) - C# EF Audit
+# Registro de Versiones (Changelog) - C# EF Audit
 
 ## v1
 **Funcionalidad principal actual:**

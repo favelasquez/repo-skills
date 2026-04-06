@@ -1,4 +1,4 @@
-﻿```text
+```text
 ██████╗ ███████╗██████╗  ██████╗ 
 ██╔══██╗██╔════╝██╔══██╗██╔═══██╗
 ██████╔╝█████╗  ██████╔╝██║   ██║
@@ -33,7 +33,6 @@ repo-skills/
 ├── gitignore-cleaner/
 ├── laravel-audit/
 ├── resolve-conflicts/
-├── review-pr/
 ├── sdd-apply/
 ├── sdd-archive/
 ├── sdd-design/
@@ -68,7 +67,6 @@ repo-skills/
 | **gitignore-cleaner** | Analiza el proyecto, detecta carpetas innecesarias y las agrega al .gitignore | `./gitignore-cleaner` |
 | **laravel-audit** | Auditora experta para Laravel 6 al 11 y Eloquent. | `./laravel-audit` |
 | **resolve-conflicts** | Resuelve conflictos de merge en el archivo abierto preservando los cambios | `./resolve-conflicts` |
-| **review-pr** | Revisa el código de un Pull Request de GitHub y publica inline comments con sugerencias directamente en el PR | `./review-pr` |
 | **sdd-apply** | Implement tasks from the change, writing actual code following the specs and design. | `./sdd-apply` |
 | **sdd-archive** | Sync delta specs to main specs and archive a completed change. | `./sdd-archive` |
 | **sdd-design** | Create technical design document with architecture decisions and approach. | `./sdd-design` |
@@ -82,3 +80,7 @@ repo-skills/
 | **stack-detector** | Detecta automáticamente el stack tecnológico de un proyecto inspeccionando dependencias | `./stack-detector` |
 | **twilio-expert** | Skill Experta en integraciones de Twilio, TwiML y Voice. | `./twilio-expert` |
 | **update-repo** | Sincroniza README.md y glosario.md con todos los skills registrados en el ecosistema | `./update-repo` |
+
+---
+
+**Creado por:** [https://github.com/favelasquez](https://github.com/favelasquez)

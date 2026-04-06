@@ -1,4 +1,4 @@
-﻿# Registro de Versiones (Changelog) - SDD Propose
+# Registro de Versiones (Changelog) - SDD Propose
 
 ## v1
 **Funcionalidad principal actual:**

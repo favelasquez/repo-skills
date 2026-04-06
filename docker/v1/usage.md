@@ -1,4 +1,4 @@
-﻿---
+---
 name: docker
 description: Detecta el stack del proyecto y genera Dockerfile y .dockerignore optimizados
 license: Apache-2.0
@@ -18,7 +18,7 @@ permissions:
     - database
 ---
 
-# Docker v1 â€” Dockerfile Generator
+# Docker v1 � Dockerfile Generator
 
 You are a Docker expert. When this skill is invoked, **execute the full Docker setup flow** for the current project.
 
@@ -29,14 +29,14 @@ Scan the project root for the following files to identify the technology and run
 
 | File | Technology |
 |------|-----------|
-| `package.json` | Node.js â€” read `engines.node` or detect from `.nvmrc`, `.node-version` |
+| `package.json` | Node.js � read `engines.node` or detect from `.nvmrc`, `.node-version` |
 | `angular.json` | Angular (Node.js base) |
-| `requirements.txt` / `pyproject.toml` / `setup.py` | Python â€” check `python_requires` or `.python-version` |
-| `*.csproj` / `*.sln` | .NET â€” read `<TargetFramework>` tag |
-| `go.mod` | Go â€” read `go X.XX` directive |
-| `pom.xml` / `build.gradle` | Java â€” check `<java.version>` or `sourceCompatibility` |
-| `Gemfile` | Ruby â€” check `ruby 'X.X.X'` |
-| `Cargo.toml` | Rust â€” check `rust-version` or use `stable` |
+| `requirements.txt` / `pyproject.toml` / `setup.py` | Python � check `python_requires` or `.python-version` |
+| `*.csproj` / `*.sln` | .NET � read `<TargetFramework>` tag |
+| `go.mod` | Go � read `go X.XX` directive |
+| `pom.xml` / `build.gradle` | Java � check `<java.version>` or `sourceCompatibility` |
+| `Gemfile` | Ruby � check `ruby 'X.X.X'` |
+| `Cargo.toml` | Rust � check `rust-version` or use `stable` |
 
 Run the following commands to confirm installed versions:
 - Node.js: `node --version`
@@ -49,9 +49,9 @@ Run the following commands to confirm installed versions:
 
 Before generating the Dockerfile, use **AskUserQuestion** to ask the user which port the application should expose:
 
-> "Â¿En quÃ© puerto corre tu aplicaciÃ³n? (Ej: 3000, 8080, 4200)"
+> "¿En qué puerto corre tu aplicación? (Ej: 3000, 8080, 4200)"
 
-Use the user's answer as `<port>` throughout the rest of the flow. If the user does not provide a value, fall back to the stack default (Node.js â†’ 3000, Python â†’ 8000, .NET â†’ 8080, Go â†’ 8080).
+Use the user's answer as `<port>` throughout the rest of the flow. If the user does not provide a value, fall back to the stack default (Node.js �  3000, Python �  8000, .NET �  8080, Go �  8080).
 
 ### 3. Generate the Dockerfile
 
@@ -145,11 +145,11 @@ Adapt it to the detected stack (e.g. add `__pycache__`, `*.pyc` for Python; `bin
 
 After creating the files, use **AskUserQuestion** with a single yes/no question:
 
-> "Â¿Docker Desktop estÃ¡ ejecutÃ¡ndose? Si es asÃ­, construirÃ© y levantarÃ© el contenedor automÃ¡ticamente."
+> "¿Docker Desktop está ejecutándose? Si es así, construiré y levantaré el contenedor automáticamente."
 
 Options:
-- **SÃ­, estÃ¡ ejecutÃ¡ndose** â€” proceed to step 6
-- **No / No lo sÃ©** â€” skip step 6 and go directly to step 7
+- **Sí, está ejecutándose** � proceed to step 6
+- **No / No lo sé** � skip step 6 and go directly to step 7
 
 ### 6. Build and run the container (only if user confirmed Docker is running)
 
@@ -183,7 +183,7 @@ Inform the user:
 - Always use **specific version tags** (never `latest`) for the base image
 - Always use **multi-stage builds** to minimize the final image size
 - Set `ENV NODE_ENV=production` (or equivalent) in production stage
-- Never copy `.env` files into the image â€” use runtime environment variables
+- Never copy `.env` files into the image � use runtime environment variables
 - Use `alpine` or `slim` variants when available
 
 

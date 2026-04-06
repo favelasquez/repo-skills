@@ -1,4 +1,4 @@
-﻿# Registro de Versiones (Changelog) - SDD Verify
+# Registro de Versiones (Changelog) - SDD Verify
 
 ## v1
 **Funcionalidad principal actual:**

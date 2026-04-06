@@ -1,4 +1,4 @@
-﻿---
+---
 name: sdd-init
 description: >
   Initialize Spec-Driven Development context in any project. Detects stack, conventions, and bootstraps the active persistence backend.

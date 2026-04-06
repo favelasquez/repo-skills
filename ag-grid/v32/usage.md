@@ -1,4 +1,4 @@
-﻿---
+---
 name: ag-grid
 description: High performance data grid for web applications
 license: Apache-2.0

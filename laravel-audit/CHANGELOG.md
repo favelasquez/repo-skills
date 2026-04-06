@@ -1,4 +1,4 @@
-﻿# Registro de Versiones (Changelog) - Laravel Audit
+# Registro de Versiones (Changelog) - Laravel Audit
 
 ## v1
 **Funcionalidad principal actual:**
