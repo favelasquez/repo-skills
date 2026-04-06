@@ -1,11 +1,11 @@
----
+﻿---
 name: sdd-propose
 description: >
   Create a change proposal with intent, scope, and approach.
   Trigger: When the orchestrator launches you to create or update a proposal for a change.
 license: MIT
 metadata:
-  author: transportationamerica-setup
+  author: gentleman-programming
   version: "2.0"
 scope:
   - sdd
@@ -35,11 +35,11 @@ From the orchestrator:
 
 - If mode is `engram`:
 
-  **Read dependencies** (two-step — search returns truncated previews):
-  1. `mem_search(query: "sdd/{change-name}/explore", project: "{project}")` → get observation ID (optional — may not exist)
-  2. If found: `mem_get_observation(id: {id})` → full exploration content
-  3. `mem_search(query: "sdd-init/{project}", project: "{project}")` → project context (optional)
-  4. If found: `mem_get_observation(id: {id})` → full project context
+  **Read dependencies** (two-step â€” search returns truncated previews):
+  1. `mem_search(query: "sdd/{change-name}/explore", project: "{project}")` â†’ get observation ID (optional â€” may not exist)
+  2. If found: `mem_get_observation(id: {id})` â†’ full exploration content
+  3. `mem_search(query: "sdd-init/{project}", project: "{project}")` â†’ project context (optional)
+  4. If found: `mem_get_observation(id: {id})` â†’ full project context
 
   **Save your artifact**:
   ```
@@ -51,11 +51,11 @@ From the orchestrator:
     content: "{your full proposal markdown}"
   )
   ```
-  `topic_key` enables upserts — saving again updates, not duplicates. (Read `skills/_shared/sdd-phase-common.md`.)
+  `topic_key` enables upserts â€” saving again updates, not duplicates. (Read `skills/_shared/sdd-phase-common.md`.)
 
   (See `skills/_shared/engram-convention.md` for full naming conventions.)
 - If mode is `openspec`: Read and follow `skills/_shared/openspec-convention.md`.
-- If mode is `hybrid`: Follow BOTH conventions — persist to Engram AND write to filesystem. Retrieve dependencies from Engram (primary) with filesystem fallback.
+- If mode is `hybrid`: Follow BOTH conventions â€” persist to Engram AND write to filesystem. Retrieve dependencies from Engram (primary) with filesystem fallback.
 - If mode is `none`: Return result only. Never create or modify project files.
 - Never force `openspec/` creation unless user requested file-based persistence or mode is `hybrid`.
 
@@ -73,7 +73,7 @@ The orchestrator provides your skill path in the launch prompt. Load it now. If 
 
 ```
 openspec/changes/{change-name}/
-└── proposal.md
+â””â”€â”€ proposal.md
 ```
 
 **IF mode is `engram` or `none`:** Do NOT create any `openspec/` directories. Skip this step.
@@ -84,7 +84,7 @@ openspec/changes/{change-name}/
 
 **IF mode is `engram`:** Existing context was already retrieved from Engram in the Persistence Contract. Skip filesystem reads.
 
-**IF mode is `none`:** Skip — no existing specs to read.
+**IF mode is `none`:** Skip â€” no existing specs to read.
 
 ### Step 4: Write proposal.md
 
@@ -140,7 +140,7 @@ Reference the recommended approach from exploration if available.}
 
 ### Step 5: Persist Artifact
 
-**This step is MANDATORY — do NOT skip it.**
+**This step is MANDATORY â€” do NOT skip it.**
 
 If mode is `engram`:
 ```
@@ -190,3 +190,5 @@ Ready for specs (sdd-spec) or design (sdd-design).
 - Apply any `rules.proposal` from `openspec/config.yaml`
 - **Size budget**: Proposal artifact MUST be under 400 words. Use bullet points and tables over prose. Headers organize, not explain.
 - Return a structured envelope with: `status`, `executive_summary`, `detailed_report` (optional), `artifacts`, `next_recommended`, and `risks` (read `skills/_shared/sdd-phase-common.md` for the full envelope spec)
+
+

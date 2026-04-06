@@ -1,11 +1,11 @@
----
+﻿---
 name: sdd-tasks
 description: >
   Break down a change into an implementation task checklist.
   Trigger: When the orchestrator launches you to create or update the task breakdown for a change.
 license: MIT
 metadata:
-  author: transportationamerica-setup
+  author: gentleman-programming
   version: "2.0"
 scope:
   - sdd
@@ -37,21 +37,21 @@ From the orchestrator:
 
   **CRITICAL: `mem_search` returns 300-char PREVIEWS, not full content. You MUST call `mem_get_observation(id)` for EVERY artifact. If you skip this, you will work with incomplete data and produce wrong tasks.**
 
-  **STEP A — SEARCH** (get IDs only — content is truncated):
+  **STEP A â€” SEARCH** (get IDs only â€” content is truncated):
 
-  **Run all artifact searches in parallel** — call all mem_search calls simultaneously in a single response, then all mem_get_observation calls simultaneously in the next response. Do NOT search sequentially.
+  **Run all artifact searches in parallel** â€” call all mem_search calls simultaneously in a single response, then all mem_get_observation calls simultaneously in the next response. Do NOT search sequentially.
 
-  1. `mem_search(query: "sdd/{change-name}/proposal", project: "{project}")` → save ID
-  2. `mem_search(query: "sdd/{change-name}/spec", project: "{project}")` → save ID
-  3. `mem_search(query: "sdd/{change-name}/design", project: "{project}")` → save ID
+  1. `mem_search(query: "sdd/{change-name}/proposal", project: "{project}")` â†’ save ID
+  2. `mem_search(query: "sdd/{change-name}/spec", project: "{project}")` â†’ save ID
+  3. `mem_search(query: "sdd/{change-name}/design", project: "{project}")` â†’ save ID
 
-  **STEP B — RETRIEVE FULL CONTENT** (mandatory for each):
+  **STEP B â€” RETRIEVE FULL CONTENT** (mandatory for each):
 
-  **Run all retrieval calls in parallel** — call all mem_get_observation calls simultaneously in a single response.
+  **Run all retrieval calls in parallel** â€” call all mem_get_observation calls simultaneously in a single response.
 
-  4. `mem_get_observation(id: {proposal_id})` → full proposal (REQUIRED)
-  5. `mem_get_observation(id: {spec_id})` → full spec (REQUIRED)
-  6. `mem_get_observation(id: {design_id})` → full design (REQUIRED)
+  4. `mem_get_observation(id: {proposal_id})` â†’ full proposal (REQUIRED)
+  5. `mem_get_observation(id: {spec_id})` â†’ full spec (REQUIRED)
+  6. `mem_get_observation(id: {design_id})` â†’ full design (REQUIRED)
 
   **DO NOT use search previews as source material.**
 
@@ -65,11 +65,11 @@ From the orchestrator:
     content: "{your full tasks markdown}"
   )
   ```
-  `topic_key` enables upserts — saving again updates, not duplicates. (Read `skills/_shared/sdd-phase-common.md`.)
+  `topic_key` enables upserts â€” saving again updates, not duplicates. (Read `skills/_shared/sdd-phase-common.md`.)
 
   (See `skills/_shared/engram-convention.md` for full naming conventions.)
 - If mode is `openspec`: Read and follow `skills/_shared/openspec-convention.md`.
-- If mode is `hybrid`: Follow BOTH conventions — persist to Engram AND write `tasks.md` to filesystem. Retrieve dependencies from Engram (primary) with filesystem fallback.
+- If mode is `hybrid`: Follow BOTH conventions â€” persist to Engram AND write `tasks.md` to filesystem. Retrieve dependencies from Engram (primary) with filesystem fallback.
 - If mode is `none`: Return result only. Never create or modify project files.
 
 ## What to Do
@@ -93,13 +93,13 @@ From the design document, identify:
 
 ```
 openspec/changes/{change-name}/
-├── proposal.md
-├── specs/
-├── design.md
-└── tasks.md               ← You create this
+â”œâ”€â”€ proposal.md
+â”œâ”€â”€ specs/
+â”œâ”€â”€ design.md
+â””â”€â”€ tasks.md               â† You create this
 ```
 
-**IF mode is `engram` or `none`:** Do NOT create any `openspec/` directories or files. Compose the tasks content in memory — you will persist it in Step 4.
+**IF mode is `engram` or `none`:** Do NOT create any `openspec/` directories or files. Compose the tasks content in memory â€” you will persist it in Step 4.
 
 #### Task File Format
 
@@ -108,7 +108,7 @@ openspec/changes/{change-name}/
 
 ## Phase 1: {Phase Name} (e.g., Infrastructure / Foundation)
 
-- [ ] 1.1 {Concrete action — what file, what change}
+- [ ] 1.1 {Concrete action â€” what file, what change}
 - [ ] 1.2 {Concrete action}
 - [ ] 1.3 {Concrete action}
 
@@ -135,7 +135,7 @@ openspec/changes/{change-name}/
 
 Each task MUST be:
 
-| Criteria | Example ✅ | Anti-example ❌ |
+| Criteria | Example âœ… | Anti-example âŒ |
 |----------|-----------|----------------|
 | **Specific** | "Create `internal/auth/middleware.go` with JWT validation" | "Add auth" |
 | **Actionable** | "Add `ValidateToken()` method to `AuthService`" | "Handle tokens" |
@@ -146,28 +146,28 @@ Each task MUST be:
 
 ```
 Phase 1: Foundation / Infrastructure
-  └─ New types, interfaces, database changes, config
-  └─ Things other tasks depend on
+  â””â”€ New types, interfaces, database changes, config
+  â””â”€ Things other tasks depend on
 
 Phase 2: Core Implementation
-  └─ Main logic, business rules, core behavior
-  └─ The meat of the change
+  â””â”€ Main logic, business rules, core behavior
+  â””â”€ The meat of the change
 
 Phase 3: Integration / Wiring
-  └─ Connect components, routes, UI wiring
-  └─ Make everything work together
+  â””â”€ Connect components, routes, UI wiring
+  â””â”€ Make everything work together
 
 Phase 4: Testing
-  └─ Unit tests, integration tests, e2e tests
-  └─ Verify against spec scenarios
+  â””â”€ Unit tests, integration tests, e2e tests
+  â””â”€ Verify against spec scenarios
 
 Phase 5: Cleanup (if needed)
-  └─ Documentation, remove dead code, polish
+  â””â”€ Documentation, remove dead code, polish
 ```
 
 ### Step 4: Persist Artifact
 
-**This step is MANDATORY — do NOT skip it.**
+**This step is MANDATORY â€” do NOT skip it.**
 
 If mode is `engram`:
 ```
@@ -214,12 +214,14 @@ Ready for implementation (sdd-apply).
 ## Rules
 
 - ALWAYS reference concrete file paths in tasks
-- Tasks MUST be ordered by dependency — Phase 1 tasks shouldn't depend on Phase 2
+- Tasks MUST be ordered by dependency â€” Phase 1 tasks shouldn't depend on Phase 2
 - Testing tasks should reference specific scenarios from the specs
 - Each task should be completable in ONE session (if a task feels too big, split it)
 - Use hierarchical numbering: 1.1, 1.2, 2.1, 2.2, etc.
 - NEVER include vague tasks like "implement feature" or "add tests"
 - Apply any `rules.tasks` from `openspec/config.yaml`
-- If the project uses TDD, integrate test-first tasks: RED task (write failing test) → GREEN task (make it pass) → REFACTOR task (clean up)
+- If the project uses TDD, integrate test-first tasks: RED task (write failing test) â†’ GREEN task (make it pass) â†’ REFACTOR task (clean up)
 - **Size budget**: Tasks artifact MUST be under 530 words. Each task: 1-2 lines max. Use checklist format, not paragraphs.
 - Return a structured envelope with: `status`, `executive_summary`, `detailed_report` (optional), `artifacts`, `next_recommended`, and `risks` (read `skills/_shared/sdd-phase-common.md` for the full envelope spec)
+
+

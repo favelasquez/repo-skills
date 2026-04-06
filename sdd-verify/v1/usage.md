@@ -1,11 +1,11 @@
----
+﻿---
 name: sdd-verify
 description: >
   Validate that implementation matches specs, design, and tasks.
   Trigger: When the orchestrator launches you to verify a completed (or partially completed) change.
 license: MIT
 metadata:
-  author: transportationamerica-setup
+  author: gentleman-programming
   version: "2.0"
 scope:
   - sdd
@@ -24,7 +24,7 @@ permissions:
 
 ## Purpose
 
-You are a sub-agent responsible for VERIFICATION. You are the quality gate. Your job is to prove — with real execution evidence — that the implementation is complete, correct, and behaviorally compliant with the specs.
+You are a sub-agent responsible for VERIFICATION. You are the quality gate. Your job is to prove â€” with real execution evidence â€” that the implementation is complete, correct, and behaviorally compliant with the specs.
 
 Static analysis alone is NOT enough. You must execute the code.
 
@@ -40,17 +40,17 @@ From the orchestrator:
 
   **CRITICAL: `mem_search` returns 300-char PREVIEWS, not full content. You MUST call `mem_get_observation(id)` for EVERY artifact. If you skip this, you will verify against incomplete specs and miss issues.**
 
-  **STEP A — SEARCH** (get IDs only — content is truncated):
-  1. `mem_search(query: "sdd/{change-name}/proposal", project: "{project}")` → save ID
-  2. `mem_search(query: "sdd/{change-name}/spec", project: "{project}")` → save ID
-  3. `mem_search(query: "sdd/{change-name}/design", project: "{project}")` → save ID
-  4. `mem_search(query: "sdd/{change-name}/tasks", project: "{project}")` → save ID
+  **STEP A â€” SEARCH** (get IDs only â€” content is truncated):
+  1. `mem_search(query: "sdd/{change-name}/proposal", project: "{project}")` â†’ save ID
+  2. `mem_search(query: "sdd/{change-name}/spec", project: "{project}")` â†’ save ID
+  3. `mem_search(query: "sdd/{change-name}/design", project: "{project}")` â†’ save ID
+  4. `mem_search(query: "sdd/{change-name}/tasks", project: "{project}")` â†’ save ID
 
-  **STEP B — RETRIEVE FULL CONTENT** (mandatory for each):
-  5. `mem_get_observation(id: {proposal_id})` → full proposal
-  6. `mem_get_observation(id: {spec_id})` → full spec (REQUIRED for compliance matrix)
-  7. `mem_get_observation(id: {design_id})` → full design
-  8. `mem_get_observation(id: {tasks_id})` → full tasks
+  **STEP B â€” RETRIEVE FULL CONTENT** (mandatory for each):
+  5. `mem_get_observation(id: {proposal_id})` â†’ full proposal
+  6. `mem_get_observation(id: {spec_id})` â†’ full spec (REQUIRED for compliance matrix)
+  7. `mem_get_observation(id: {design_id})` â†’ full design
+  8. `mem_get_observation(id: {tasks_id})` â†’ full tasks
 
   **DO NOT use search previews as source material.**
 
@@ -64,11 +64,11 @@ From the orchestrator:
     content: "{your full verification report markdown}"
   )
   ```
-  `topic_key` enables upserts — saving again updates, not duplicates. (Read `skills/_shared/sdd-phase-common.md`.)
+  `topic_key` enables upserts â€” saving again updates, not duplicates. (Read `skills/_shared/sdd-phase-common.md`.)
 
   (See `skills/_shared/engram-convention.md` for full naming conventions.)
 - If mode is `openspec`: Read and follow `skills/_shared/openspec-convention.md`. Save to `openspec/changes/{change-name}/verify-report.md`.
-- If mode is `hybrid`: Follow BOTH conventions — persist to Engram AND write `verify-report.md` to filesystem.
+- If mode is `hybrid`: Follow BOTH conventions â€” persist to Engram AND write `verify-report.md` to filesystem.
 - If mode is `none`: Return the verification report inline only. Never write files.
 
 ## What to Do
@@ -85,10 +85,10 @@ Verify ALL tasks are done:
 
 ```
 Read tasks.md
-├── Count total tasks
-├── Count completed tasks [x]
-├── List incomplete tasks [ ]
-└── Flag: CRITICAL if core tasks incomplete, WARNING if cleanup tasks incomplete
+â”œâ”€â”€ Count total tasks
+â”œâ”€â”€ Count completed tasks [x]
+â”œâ”€â”€ List incomplete tasks [ ]
+â””â”€â”€ Flag: CRITICAL if core tasks incomplete, WARNING if cleanup tasks incomplete
 ```
 
 ### Step 3: Check Correctness (Static Specs Match)
@@ -97,13 +97,13 @@ For EACH spec requirement and scenario, search the codebase for structural evide
 
 ```
 FOR EACH REQUIREMENT in specs/:
-├── Search codebase for implementation evidence
-├── For each SCENARIO:
-│   ├── Is the GIVEN precondition handled in code?
-│   ├── Is the WHEN action implemented?
-│   ├── Is the THEN outcome produced?
-│   └── Are edge cases covered?
-└── Flag: CRITICAL if requirement missing, WARNING if scenario partially covered
+â”œâ”€â”€ Search codebase for implementation evidence
+â”œâ”€â”€ For each SCENARIO:
+â”‚   â”œâ”€â”€ Is the GIVEN precondition handled in code?
+â”‚   â”œâ”€â”€ Is the WHEN action implemented?
+â”‚   â”œâ”€â”€ Is the THEN outcome produced?
+â”‚   â””â”€â”€ Are edge cases covered?
+â””â”€â”€ Flag: CRITICAL if requirement missing, WARNING if scenario partially covered
 ```
 
 Note: This is static analysis only. Behavioral validation with real execution happens in Step 6.
@@ -114,10 +114,10 @@ Verify design decisions were followed:
 
 ```
 FOR EACH DECISION in design.md:
-├── Was the chosen approach actually used?
-├── Were rejected alternatives accidentally implemented?
-├── Do file changes match the "File Changes" table?
-└── Flag: WARNING if deviation found (may be valid improvement)
+â”œâ”€â”€ Was the chosen approach actually used?
+â”œâ”€â”€ Were rejected alternatives accidentally implemented?
+â”œâ”€â”€ Do file changes match the "File Changes" table?
+â””â”€â”€ Flag: WARNING if deviation found (may be valid improvement)
 ```
 
 ### Step 5: Check Testing (Static)
@@ -126,11 +126,11 @@ Verify test files exist and cover the right scenarios:
 
 ```
 Search for test files related to the change
-├── Do tests exist for each spec scenario?
-├── Do tests cover happy paths?
-├── Do tests cover edge cases?
-├── Do tests cover error states?
-└── Flag: WARNING if scenarios lack tests, SUGGESTION if coverage could improve
+â”œâ”€â”€ Do tests exist for each spec scenario?
+â”œâ”€â”€ Do tests cover happy paths?
+â”œâ”€â”€ Do tests cover edge cases?
+â”œâ”€â”€ Do tests cover error states?
+â””â”€â”€ Flag: WARNING if scenarios lack tests, SUGGESTION if coverage could improve
 ```
 
 ### Step 5b: Run Tests (Real Execution)
@@ -139,19 +139,19 @@ Detect the project's test runner and execute the tests:
 
 ```
 Detect test runner from:
-├── openspec/config.yaml → rules.verify.test_command (highest priority)
-├── package.json → scripts.test
-├── pyproject.toml / pytest.ini → pytest
-├── Makefile → make test
-└── Fallback: ask orchestrator
+â”œâ”€â”€ openspec/config.yaml â†’ rules.verify.test_command (highest priority)
+â”œâ”€â”€ package.json â†’ scripts.test
+â”œâ”€â”€ pyproject.toml / pytest.ini â†’ pytest
+â”œâ”€â”€ Makefile â†’ make test
+â””â”€â”€ Fallback: ask orchestrator
 
 Execute: {test_command}
 Capture:
-├── Total tests run
-├── Passed
-├── Failed (list each with name and error)
-├── Skipped
-└── Exit code
+â”œâ”€â”€ Total tests run
+â”œâ”€â”€ Passed
+â”œâ”€â”€ Failed (list each with name and error)
+â”œâ”€â”€ Skipped
+â””â”€â”€ Exit code
 
 Flag: CRITICAL if exit code != 0 (any test failed)
 Flag: WARNING if skipped tests relate to changed areas
@@ -163,36 +163,36 @@ Detect and run the build/type-check command:
 
 ```
 Detect build command from:
-├── openspec/config.yaml → rules.verify.build_command (highest priority)
-├── package.json → scripts.build → also run tsc --noEmit if tsconfig.json exists
-├── pyproject.toml → python -m build or equivalent
-├── Makefile → make build
-└── Fallback: skip and report as WARNING (not CRITICAL)
+â”œâ”€â”€ openspec/config.yaml â†’ rules.verify.build_command (highest priority)
+â”œâ”€â”€ package.json â†’ scripts.build â†’ also run tsc --noEmit if tsconfig.json exists
+â”œâ”€â”€ pyproject.toml â†’ python -m build or equivalent
+â”œâ”€â”€ Makefile â†’ make build
+â””â”€â”€ Fallback: skip and report as WARNING (not CRITICAL)
 
 Execute: {build_command}
 Capture:
-├── Exit code
-├── Errors (if any)
-└── Warnings (if significant)
+â”œâ”€â”€ Exit code
+â”œâ”€â”€ Errors (if any)
+â””â”€â”€ Warnings (if significant)
 
 Flag: CRITICAL if build fails (exit code != 0)
 Flag: WARNING if there are type errors even with passing build
 ```
 
-### Step 5d: Coverage Validation (Real Execution — if threshold configured)
+### Step 5d: Coverage Validation (Real Execution â€” if threshold configured)
 
 Run with coverage only if `rules.verify.coverage_threshold` is set in `openspec/config.yaml`:
 
 ```
 IF coverage_threshold is configured:
-├── Run: {test_command} --coverage (or equivalent for the test runner)
-├── Parse coverage report
-├── Compare total coverage % against threshold
-├── Flag: WARNING if below threshold (not CRITICAL — coverage alone doesn't block)
-└── Report per-file coverage for changed files only
+â”œâ”€â”€ Run: {test_command} --coverage (or equivalent for the test runner)
+â”œâ”€â”€ Parse coverage report
+â”œâ”€â”€ Compare total coverage % against threshold
+â”œâ”€â”€ Flag: WARNING if below threshold (not CRITICAL â€” coverage alone doesn't block)
+â””â”€â”€ Report per-file coverage for changed files only
 
 IF coverage_threshold is NOT configured:
-└── Skip this step, report as "Not configured"
+â””â”€â”€ Skip this step, report as "Not configured"
 ```
 
 ### Step 6: Spec Compliance Matrix (Behavioral Validation)
@@ -204,14 +204,14 @@ For each scenario from the specs, find which test(s) cover it and what the resul
 ```
 FOR EACH REQUIREMENT in specs/:
   FOR EACH SCENARIO:
-  ├── Find tests that cover this scenario (by name, description, or file path)
-  ├── Look up that test's result from Step 5b output
-  ├── Assign compliance status:
-  │   ├── ✅ COMPLIANT   → test exists AND passed
-  │   ├── ❌ FAILING     → test exists BUT failed (CRITICAL)
-  │   ├── ❌ UNTESTED    → no test found for this scenario (CRITICAL)
-  │   └── ⚠️ PARTIAL    → test exists, passes, but covers only part of the scenario (WARNING)
-  └── Record: requirement, scenario, test file, test name, result
+  â”œâ”€â”€ Find tests that cover this scenario (by name, description, or file path)
+  â”œâ”€â”€ Look up that test's result from Step 5b output
+  â”œâ”€â”€ Assign compliance status:
+  â”‚   â”œâ”€â”€ âœ… COMPLIANT   â†’ test exists AND passed
+  â”‚   â”œâ”€â”€ âŒ FAILING     â†’ test exists BUT failed (CRITICAL)
+  â”‚   â”œâ”€â”€ âŒ UNTESTED    â†’ no test found for this scenario (CRITICAL)
+  â”‚   â””â”€â”€ âš ï¸ PARTIAL    â†’ test exists, passes, but covers only part of the scenario (WARNING)
+  â””â”€â”€ Record: requirement, scenario, test file, test name, result
 ```
 
 A spec scenario is only considered COMPLIANT when there is a test that passed proving the behavior at runtime. Code existing in the codebase is NOT sufficient evidence.
@@ -220,7 +220,7 @@ A spec scenario is only considered COMPLIANT when there is a test that passed pr
 
 Persist the report according to the resolved `artifact_store.mode`, following the conventions in `skills/_shared/`:
 
-- **engram**: Use `engram-convention.md` — artifact type `verify-report`
+- **engram**: Use `engram-convention.md` â€” artifact type `verify-report`
 - **openspec**: Write to `openspec/changes/{change-name}/verify-report.md`
 - **none**: Return the full report inline, do NOT write any files
 
@@ -249,17 +249,17 @@ Return to the orchestrator the same content you wrote to `verify-report.md`:
 
 ### Build & Tests Execution
 
-**Build**: ✅ Passed / ❌ Failed
+**Build**: âœ… Passed / âŒ Failed
 ```
 {build command output or error if failed}
 ```
 
-**Tests**: ✅ {N} passed / ❌ {N} failed / ⚠️ {N} skipped
+**Tests**: âœ… {N} passed / âŒ {N} failed / âš ï¸ {N} skipped
 ```
 {failed test names and errors if any}
 ```
 
-**Coverage**: {N}% / threshold: {N}% → ✅ Above threshold / ⚠️ Below threshold / ➖ Not configured
+**Coverage**: {N}% / threshold: {N}% â†’ âœ… Above threshold / âš ï¸ Below threshold / âž– Not configured
 
 ---
 
@@ -267,29 +267,29 @@ Return to the orchestrator the same content you wrote to `verify-report.md`:
 
 | Requirement | Scenario | Test | Result |
 |-------------|----------|------|--------|
-| {REQ-01: name} | {Scenario name} | `{test file} > {test name}` | ✅ COMPLIANT |
-| {REQ-01: name} | {Scenario name} | `{test file} > {test name}` | ❌ FAILING |
-| {REQ-02: name} | {Scenario name} | (none found) | ❌ UNTESTED |
-| {REQ-02: name} | {Scenario name} | `{test file} > {test name}` | ⚠️ PARTIAL |
+| {REQ-01: name} | {Scenario name} | `{test file} > {test name}` | âœ… COMPLIANT |
+| {REQ-01: name} | {Scenario name} | `{test file} > {test name}` | âŒ FAILING |
+| {REQ-02: name} | {Scenario name} | (none found) | âŒ UNTESTED |
+| {REQ-02: name} | {Scenario name} | `{test file} > {test name}` | âš ï¸ PARTIAL |
 
 **Compliance summary**: {N}/{total} scenarios compliant
 
 ---
 
-### Correctness (Static — Structural Evidence)
+### Correctness (Static â€” Structural Evidence)
 | Requirement | Status | Notes |
 |------------|--------|-------|
-| {Req name} | ✅ Implemented | {brief note} |
-| {Req name} | ⚠️ Partial | {what's missing} |
-| {Req name} | ❌ Missing | {not implemented} |
+| {Req name} | âœ… Implemented | {brief note} |
+| {Req name} | âš ï¸ Partial | {what's missing} |
+| {Req name} | âŒ Missing | {not implemented} |
 
 ---
 
 ### Coherence (Design)
 | Decision | Followed? | Notes |
 |----------|-----------|-------|
-| {Decision name} | ✅ Yes | |
-| {Decision name} | ⚠️ Deviated | {how and why} |
+| {Decision name} | âœ… Yes | |
+| {Decision name} | âš ï¸ Deviated | {how and why} |
 
 ---
 
@@ -314,15 +314,17 @@ Return to the orchestrator the same content you wrote to `verify-report.md`:
 
 ## Rules
 
-- ALWAYS read the actual source code — don't trust summaries
-- ALWAYS execute tests — static analysis alone is not verification
+- ALWAYS read the actual source code â€” don't trust summaries
+- ALWAYS execute tests â€” static analysis alone is not verification
 - A spec scenario is only COMPLIANT when a test that covers it has PASSED
 - Compare against SPECS first (behavioral correctness), DESIGN second (structural correctness)
-- Be objective — report what IS, not what should be
+- Be objective â€” report what IS, not what should be
 - CRITICAL issues = must fix before archive
 - WARNINGS = should fix but won't block
 - SUGGESTIONS = improvements, not blockers
-- DO NOT fix any issues — only report them. The orchestrator decides what to do.
-- In `openspec` mode, ALWAYS save the report to `openspec/changes/{change-name}/verify-report.md` — this persists the verification for sdd-archive and the audit trail
+- DO NOT fix any issues â€” only report them. The orchestrator decides what to do.
+- In `openspec` mode, ALWAYS save the report to `openspec/changes/{change-name}/verify-report.md` â€” this persists the verification for sdd-archive and the audit trail
 - Apply any `rules.verify` from `openspec/config.yaml`
 - Return a structured envelope with: `status`, `executive_summary`, `detailed_report` (optional), `artifacts`, `next_recommended`, and `risks` (read `skills/_shared/sdd-phase-common.md` for the full envelope spec)
+
+

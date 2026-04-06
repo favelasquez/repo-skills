@@ -1,11 +1,11 @@
----
+﻿---
 name: sdd-apply
 description: >
   Implement tasks from the change, writing actual code following the specs and design.
   Trigger: When the orchestrator launches you to implement one or more tasks from a change.
 license: MIT
 metadata:
-  author: transportationamerica-setup
+  author: gentleman-programming
   version: "2.0"
 scope:
   - sdd
@@ -38,23 +38,23 @@ From the orchestrator:
 
   **CRITICAL: `mem_search` returns 300-char PREVIEWS, not full content. You MUST call `mem_get_observation(id)` for EVERY artifact. If you skip this, you will work with incomplete specs and produce wrong code.**
 
-  **STEP A — SEARCH** (get IDs only — content is truncated):
+  **STEP A â€” SEARCH** (get IDs only â€” content is truncated):
 
-  **Run all artifact searches in parallel** — call all mem_search calls simultaneously in a single response, then all mem_get_observation calls simultaneously in the next response. Do NOT search sequentially.
+  **Run all artifact searches in parallel** â€” call all mem_search calls simultaneously in a single response, then all mem_get_observation calls simultaneously in the next response. Do NOT search sequentially.
 
-  1. `mem_search(query: "sdd/{change-name}/proposal", project: "{project}")` → save ID
-  2. `mem_search(query: "sdd/{change-name}/spec", project: "{project}")` → save ID
-  3. `mem_search(query: "sdd/{change-name}/design", project: "{project}")` → save ID
-  4. `mem_search(query: "sdd/{change-name}/tasks", project: "{project}")` → save ID (keep this ID for updates)
+  1. `mem_search(query: "sdd/{change-name}/proposal", project: "{project}")` â†’ save ID
+  2. `mem_search(query: "sdd/{change-name}/spec", project: "{project}")` â†’ save ID
+  3. `mem_search(query: "sdd/{change-name}/design", project: "{project}")` â†’ save ID
+  4. `mem_search(query: "sdd/{change-name}/tasks", project: "{project}")` â†’ save ID (keep this ID for updates)
 
-  **STEP B — RETRIEVE FULL CONTENT** (mandatory for each):
+  **STEP B â€” RETRIEVE FULL CONTENT** (mandatory for each):
 
-  **Run all retrieval calls in parallel** — call all mem_get_observation calls simultaneously in a single response.
+  **Run all retrieval calls in parallel** â€” call all mem_get_observation calls simultaneously in a single response.
 
-  5. `mem_get_observation(id: {proposal_id})` → full proposal
-  6. `mem_get_observation(id: {spec_id})` → full spec
-  7. `mem_get_observation(id: {design_id})` → full design
-  8. `mem_get_observation(id: {tasks_id})` → full tasks
+  5. `mem_get_observation(id: {proposal_id})` â†’ full proposal
+  6. `mem_get_observation(id: {spec_id})` â†’ full spec
+  7. `mem_get_observation(id: {design_id})` â†’ full design
+  8. `mem_get_observation(id: {tasks_id})` â†’ full tasks
 
   **DO NOT use search previews as source material.**
 
@@ -73,11 +73,11 @@ From the orchestrator:
     content: "{your implementation progress report}"
   )
   ```
-  `topic_key` enables upserts — saving again updates, not duplicates. (Read `skills/_shared/sdd-phase-common.md`.)
+  `topic_key` enables upserts â€” saving again updates, not duplicates. (Read `skills/_shared/sdd-phase-common.md`.)
 
   (See `skills/_shared/engram-convention.md` for advanced operations.)
 - If mode is `openspec`: Read and follow `skills/_shared/openspec-convention.md`. Update `tasks.md` with `[x]` marks.
-- If mode is `hybrid`: Follow BOTH conventions — persist progress to Engram (`mem_update` for tasks) AND update `tasks.md` with `[x]` marks on filesystem.
+- If mode is `hybrid`: Follow BOTH conventions â€” persist progress to Engram (`mem_update` for tasks) AND update `tasks.md` with `[x]` marks on filesystem.
 - If mode is `none`: Return progress only. Do not update project artifacts.
 
 ## What to Do
@@ -91,9 +91,9 @@ The orchestrator provides your skill path in the launch prompt. Load it now. If 
 ### Step 2: Read Context
 
 Before writing ANY code:
-1. Read the specs — understand WHAT the code must do
-2. Read the design — understand HOW to structure the code
-3. Read existing code in affected files — understand current patterns
+1. Read the specs â€” understand WHAT the code must do
+2. Read the design â€” understand HOW to structure the code
+3. Read existing code in affected files â€” understand current patterns
 4. Check the project's coding conventions from `config.yaml`
 
 ### Step 3: Detect Implementation Mode
@@ -102,55 +102,55 @@ Before writing code, determine if the project uses TDD:
 
 ```
 Detect TDD mode from (in priority order):
-├── openspec/config.yaml → rules.apply.tdd (true/false — highest priority)
-├── User's installed skills (e.g., tdd/SKILL.md exists)
-├── Existing test patterns in the codebase (test files alongside source)
-└── Default: standard mode (write code first, then verify)
+â”œâ”€â”€ openspec/config.yaml â†’ rules.apply.tdd (true/false â€” highest priority)
+â”œâ”€â”€ User's installed skills (e.g., tdd/SKILL.md exists)
+â”œâ”€â”€ Existing test patterns in the codebase (test files alongside source)
+â””â”€â”€ Default: standard mode (write code first, then verify)
 
-IF TDD mode is detected → use Step 3a (TDD Workflow)
-IF standard mode → use Step 3b (Standard Workflow)
+IF TDD mode is detected â†’ use Step 3a (TDD Workflow)
+IF standard mode â†’ use Step 3b (Standard Workflow)
 ```
 
-### Step 3a: Implement Tasks (TDD Workflow — RED → GREEN → REFACTOR)
+### Step 3a: Implement Tasks (TDD Workflow â€” RED â†’ GREEN â†’ REFACTOR)
 
 When TDD is active, EVERY task follows this cycle:
 
 ```
 FOR EACH TASK:
-├── 1. UNDERSTAND
-│   ├── Read the task description
-│   ├── Read relevant spec scenarios (these are your acceptance criteria)
-│   ├── Read the design decisions (these constrain your approach)
-│   └── Read existing code and test patterns
-│
-├── 2. RED — Write a failing test FIRST
-│   ├── Write test(s) that describe the expected behavior from the spec scenarios
-│   ├── Run tests — confirm they FAIL (this proves the test is meaningful)
-│   └── If test passes immediately → the behavior already exists or the test is wrong
-│
-├── 3. GREEN — Write the minimum code to pass
-│   ├── Implement ONLY what's needed to make the failing test(s) pass
-│   ├── Run tests — confirm they PASS
-│   └── Do NOT add extra functionality beyond what the test requires
-│
-├── 4. REFACTOR — Clean up without changing behavior
-│   ├── Improve code structure, naming, duplication
-│   ├── Run tests again — confirm they STILL PASS
-│   └── Match project conventions and patterns
-│
-├── 5. Mark task as complete [x] in tasks.md
-└── 6. Note any issues or deviations
+â”œâ”€â”€ 1. UNDERSTAND
+â”‚   â”œâ”€â”€ Read the task description
+â”‚   â”œâ”€â”€ Read relevant spec scenarios (these are your acceptance criteria)
+â”‚   â”œâ”€â”€ Read the design decisions (these constrain your approach)
+â”‚   â””â”€â”€ Read existing code and test patterns
+â”‚
+â”œâ”€â”€ 2. RED â€” Write a failing test FIRST
+â”‚   â”œâ”€â”€ Write test(s) that describe the expected behavior from the spec scenarios
+â”‚   â”œâ”€â”€ Run tests â€” confirm they FAIL (this proves the test is meaningful)
+â”‚   â””â”€â”€ If test passes immediately â†’ the behavior already exists or the test is wrong
+â”‚
+â”œâ”€â”€ 3. GREEN â€” Write the minimum code to pass
+â”‚   â”œâ”€â”€ Implement ONLY what's needed to make the failing test(s) pass
+â”‚   â”œâ”€â”€ Run tests â€” confirm they PASS
+â”‚   â””â”€â”€ Do NOT add extra functionality beyond what the test requires
+â”‚
+â”œâ”€â”€ 4. REFACTOR â€” Clean up without changing behavior
+â”‚   â”œâ”€â”€ Improve code structure, naming, duplication
+â”‚   â”œâ”€â”€ Run tests again â€” confirm they STILL PASS
+â”‚   â””â”€â”€ Match project conventions and patterns
+â”‚
+â”œâ”€â”€ 5. Mark task as complete [x] in tasks.md
+â””â”€â”€ 6. Note any issues or deviations
 ```
 
 Detect the test runner for execution:
 
 ```
 Detect test runner from:
-├── openspec/config.yaml → rules.apply.test_command (highest priority)
-├── package.json → scripts.test
-├── pyproject.toml / pytest.ini → pytest
-├── Makefile → make test
-└── Fallback: report that tests couldn't be run automatically
+â”œâ”€â”€ openspec/config.yaml â†’ rules.apply.test_command (highest priority)
+â”œâ”€â”€ package.json â†’ scripts.test
+â”œâ”€â”€ pyproject.toml / pytest.ini â†’ pytest
+â”œâ”€â”€ Makefile â†’ make test
+â””â”€â”€ Fallback: report that tests couldn't be run automatically
 ```
 
 **Important**: If any user coding skills are installed (e.g., `tdd/SKILL.md`, `pytest/SKILL.md`, `vitest/SKILL.md`), read and follow those skill patterns for writing tests.
@@ -161,30 +161,30 @@ When TDD is not active:
 
 ```
 FOR EACH TASK:
-├── Read the task description
-├── Read relevant spec scenarios (these are your acceptance criteria)
-├── Read the design decisions (these constrain your approach)
-├── Read existing code patterns (match the project's style)
-├── Write the code
-├── Mark task as complete [x] in tasks.md
-└── Note any issues or deviations
+â”œâ”€â”€ Read the task description
+â”œâ”€â”€ Read relevant spec scenarios (these are your acceptance criteria)
+â”œâ”€â”€ Read the design decisions (these constrain your approach)
+â”œâ”€â”€ Read existing code patterns (match the project's style)
+â”œâ”€â”€ Write the code
+â”œâ”€â”€ Mark task as complete [x] in tasks.md
+â””â”€â”€ Note any issues or deviations
 ```
 
 ### Step 4: Mark Tasks Complete
 
-Update `tasks.md` — change `- [ ]` to `- [x]` for completed tasks:
+Update `tasks.md` â€” change `- [ ]` to `- [x]` for completed tasks:
 
 ```markdown
 ## Phase 1: Foundation
 
 - [x] 1.1 Create `internal/auth/middleware.go` with JWT validation
 - [x] 1.2 Add `AuthConfig` struct to `internal/config/config.go`
-- [ ] 1.3 Add auth routes to `internal/server/server.go`  ← still pending
+- [ ] 1.3 Add auth routes to `internal/server/server.go`  â† still pending
 ```
 
 ### Step 5: Persist Progress
 
-**This step is MANDATORY — do NOT skip it.**
+**This step is MANDATORY â€” do NOT skip it.**
 
 If mode is `engram`:
 1. Update the tasks artifact with completion marks:
@@ -231,14 +231,14 @@ Return to the orchestrator:
 ### Tests (TDD mode only)
 | Task | Test File | RED (fail) | GREEN (pass) | REFACTOR |
 |------|-----------|------------|--------------|----------|
-| 1.1 | `path/to/test.ext` | ✅ Failed as expected | ✅ Passed | ✅ Clean |
-| 1.2 | `path/to/test.ext` | ✅ Failed as expected | ✅ Passed | ✅ Clean |
+| 1.1 | `path/to/test.ext` | âœ… Failed as expected | âœ… Passed | âœ… Clean |
+| 1.2 | `path/to/test.ext` | âœ… Failed as expected | âœ… Passed | âœ… Clean |
 
 {Omit this section if standard mode was used.}
 
 ### Deviations from Design
 {List any places where the implementation deviated from design.md and why.
-If none, say "None — implementation matches design."}
+If none, say "None â€” implementation matches design."}
 
 ### Issues Found
 {List any problems discovered during implementation.
@@ -254,15 +254,17 @@ If none, say "None."}
 
 ## Rules
 
-- ALWAYS read specs before implementing — specs are your acceptance criteria
-- ALWAYS follow the design decisions — don't freelance a different approach
+- ALWAYS read specs before implementing â€” specs are your acceptance criteria
+- ALWAYS follow the design decisions â€” don't freelance a different approach
 - ALWAYS match existing code patterns and conventions in the project
 - In `openspec` mode, mark tasks complete in `tasks.md` AS you go, not at the end
-- If you discover the design is wrong or incomplete, NOTE IT in your return summary — don't silently deviate
+- If you discover the design is wrong or incomplete, NOTE IT in your return summary â€” don't silently deviate
 - If a task is blocked by something unexpected, STOP and report back
 - NEVER implement tasks that weren't assigned to you
-- Skill loading is handled in Step 1 — follow any loaded skills strictly when writing code
+- Skill loading is handled in Step 1 â€” follow any loaded skills strictly when writing code
 - Apply any `rules.apply` from `openspec/config.yaml`
-- If TDD mode is detected (Step 3), ALWAYS follow the RED → GREEN → REFACTOR cycle — never skip RED (writing the failing test first)
+- If TDD mode is detected (Step 3), ALWAYS follow the RED â†’ GREEN â†’ REFACTOR cycle â€” never skip RED (writing the failing test first)
 - When running tests during TDD, run ONLY the relevant test file/suite, not the entire test suite (for speed)
 - Return a structured envelope with: `status`, `executive_summary`, `detailed_report` (optional), `artifacts`, `next_recommended`, and `risks` (read `skills/_shared/sdd-phase-common.md` for the full envelope spec)
+
+

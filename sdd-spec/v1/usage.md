@@ -1,11 +1,11 @@
----
+﻿---
 name: sdd-spec
 description: >
   Write specifications with requirements and scenarios (delta specs for changes).
   Trigger: When the orchestrator launches you to write or update specs for a change.
 license: MIT
 metadata:
-  author: transportationamerica-setup
+  author: gentleman-programming
   version: "2.0"
 scope:
   - sdd
@@ -23,7 +23,7 @@ permissions:
 
 ## Purpose
 
-You are a sub-agent responsible for writing SPECIFICATIONS. You take the proposal and produce delta specs — structured requirements and scenarios that describe what's being ADDED, MODIFIED, or REMOVED from the system's behavior.
+You are a sub-agent responsible for writing SPECIFICATIONS. You take the proposal and produce delta specs â€” structured requirements and scenarios that describe what's being ADDED, MODIFIED, or REMOVED from the system's behavior.
 
 ## What You Receive
 
@@ -37,11 +37,11 @@ From the orchestrator:
 
   **CRITICAL: `mem_search` returns 300-char PREVIEWS, not full content. You MUST call `mem_get_observation(id)` for EVERY artifact. If you skip this, you will work with incomplete data and produce wrong specs.**
 
-  **STEP A — SEARCH** (get IDs only — content is truncated):
-  1. `mem_search(query: "sdd/{change-name}/proposal", project: "{project}")` → save ID
+  **STEP A â€” SEARCH** (get IDs only â€” content is truncated):
+  1. `mem_search(query: "sdd/{change-name}/proposal", project: "{project}")` â†’ save ID
 
-  **STEP B — RETRIEVE FULL CONTENT** (mandatory):
-  2. `mem_get_observation(id: {proposal_id})` → full proposal content (REQUIRED)
+  **STEP B â€” RETRIEVE FULL CONTENT** (mandatory):
+  2. `mem_get_observation(id: {proposal_id})` â†’ full proposal content (REQUIRED)
 
   **DO NOT use search previews as source material.**
 
@@ -54,14 +54,14 @@ From the orchestrator:
     topic_key: "sdd/{change-name}/spec",
     type: "architecture",
     project: "{project}",
-    content: "{your full spec markdown — all domains concatenated}"
+    content: "{your full spec markdown â€” all domains concatenated}"
   )
   ```
-  `topic_key` enables upserts — saving again updates, not duplicates. (Read `skills/_shared/sdd-phase-common.md`.)
+  `topic_key` enables upserts â€” saving again updates, not duplicates. (Read `skills/_shared/sdd-phase-common.md`.)
 
   (See `skills/_shared/engram-convention.md` for full naming conventions.)
 - If mode is `openspec`: Read and follow `skills/_shared/openspec-convention.md`.
-- If mode is `hybrid`: Follow BOTH conventions — persist to Engram (single concatenated artifact) AND write domain files to filesystem.
+- If mode is `hybrid`: Follow BOTH conventions â€” persist to Engram (single concatenated artifact) AND write domain files to filesystem.
 - If mode is `none`: Return result only. Never create or modify project files.
 
 ## What to Do
@@ -82,7 +82,7 @@ From the proposal's "Affected Areas", determine which spec domains are touched. 
 
 **IF mode is `engram`:** Existing specs were already retrieved from Engram in the Persistence Contract. Skip filesystem reads.
 
-**IF mode is `none`:** Skip — no existing specs to read.
+**IF mode is `none`:** Skip â€” no existing specs to read.
 
 ### Step 4: Write Delta Specs
 
@@ -90,13 +90,13 @@ From the proposal's "Affected Areas", determine which spec domains are touched. 
 
 ```
 openspec/changes/{change-name}/
-├── proposal.md              ← (already exists)
-└── specs/
-    └── {domain}/
-        └── spec.md          ← Delta spec
+â”œâ”€â”€ proposal.md              â† (already exists)
+â””â”€â”€ specs/
+    â””â”€â”€ {domain}/
+        â””â”€â”€ spec.md          â† Delta spec
 ```
 
-**IF mode is `engram` or `none`:** Do NOT create any `openspec/` directories or files. Compose the spec content in memory — you will persist it in Step 5.
+**IF mode is `engram` or `none`:** Do NOT create any `openspec/` directories or files. Compose the spec content in memory â€” you will persist it in Step 5.
 
 #### Delta Spec Format
 
@@ -128,7 +128,7 @@ The system {MUST/SHALL/SHOULD} {do something specific}.
 
 ### Requirement: {Existing Requirement Name}
 
-{New description — replaces the existing one}
+{New description â€” replaces the existing one}
 (Previously: {what it was before})
 
 #### Scenario: {Updated scenario}
@@ -170,7 +170,7 @@ The system {MUST/SHALL/SHOULD} {behavior}.
 
 ### Step 5: Persist Artifact
 
-**This step is MANDATORY — do NOT skip it.**
+**This step is MANDATORY â€” do NOT skip it.**
 
 If mode is `engram`:
 ```
@@ -179,7 +179,7 @@ mem_save(
   topic_key: "sdd/{change-name}/spec",
   type: "architecture",
   project: "{project}",
-  content: "{your full spec markdown from Step 4 — all domains concatenated}"
+  content: "{your full spec markdown from Step 4 â€” all domains concatenated}"
 )
 ```
 
@@ -220,8 +220,8 @@ Ready for design (sdd-design). If design already exists, ready for tasks (sdd-ta
 - If NO existing specs exist for the domain, write a FULL spec
 - Every requirement MUST have at least ONE scenario
 - Include both happy path AND edge case scenarios
-- Keep scenarios TESTABLE — someone should be able to write an automated test from each one
-- DO NOT include implementation details in specs — specs describe WHAT, not HOW
+- Keep scenarios TESTABLE â€” someone should be able to write an automated test from each one
+- DO NOT include implementation details in specs â€” specs describe WHAT, not HOW
 - Apply any `rules.specs` from `openspec/config.yaml`
 - **Size budget**: Spec artifact MUST be under 650 words. Prefer requirement tables over narrative descriptions. Each scenario: 3-5 lines max.
 - Return a structured envelope with: `status`, `executive_summary`, `detailed_report` (optional), `artifacts`, `next_recommended`, and `risks` (read `skills/_shared/sdd-phase-common.md` for the full envelope spec)
@@ -235,3 +235,5 @@ Ready for design (sdd-design). If design already exists, ready for tasks (sdd-ta
 | **SHOULD** | Recommended, but exceptions may exist with justification |
 | **SHOULD NOT** | Not recommended, but may be acceptable with justification |
 | **MAY** | Optional |
+
+

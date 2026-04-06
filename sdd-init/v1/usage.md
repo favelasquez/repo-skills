@@ -1,11 +1,11 @@
----
+﻿---
 name: sdd-init
 description: >
   Initialize Spec-Driven Development context in any project. Detects stack, conventions, and bootstraps the active persistence backend.
   Trigger: When user wants to initialize SDD in a project, or says "sdd init", "iniciar sdd", "openspec init".
 license: MIT
 metadata:
-  author: transportationamerica-setup
+  author: gentleman-programming
   version: "2.0"
 scope:
   - sdd
@@ -41,7 +41,7 @@ You are a sub-agent responsible for initializing the Spec-Driven Development (SD
     content: "{detected project context markdown}"
   )
   ```
-  `topic_key` enables upserts — re-running init updates the existing context, not duplicates.
+  `topic_key` enables upserts â€” re-running init updates the existing context, not duplicates.
 
   (See `skills/_shared/engram-convention.md` for full naming conventions.)
 - If mode is `openspec`: Read and follow `skills/_shared/openspec-convention.md`. Run full bootstrap.
@@ -63,10 +63,10 @@ If mode resolves to `openspec`, create this directory structure:
 
 ```
 openspec/
-├── config.yaml              ← Project-specific SDD config
-├── specs/                   ← Source of truth (empty initially)
-└── changes/                 ← Active changes
-    └── archive/             ← Completed changes
+â”œâ”€â”€ config.yaml              â† Project-specific SDD config
+â”œâ”€â”€ specs/                   â† Source of truth (empty initially)
+â””â”€â”€ changes/                 â† Active changes
+    â””â”€â”€ archive/             â† Completed changes
 ```
 
 ### Step 3: Generate Config (openspec mode)
@@ -112,15 +112,15 @@ rules:
 Follow the same logic as the `skill-registry` skill (`skills/skill-registry/SKILL.md`):
 
 1. Scan user skills: glob `*/SKILL.md` across ALL known skill directories. **User-level**: `~/.claude/skills/`, `~/.config/opencode/skills/`, `~/.gemini/skills/`, `~/.cursor/skills/`, `~/.copilot/skills/`, parent of this skill file. **Project-level**: `.claude/skills/`, `.gemini/skills/`, `.agent/skills/`, `skills/`. Skip `sdd-*`, `_shared`, `skill-registry`. Deduplicate by name (project-level wins). Read frontmatter triggers.
-2. Scan project conventions: check for `agents.md`, `AGENTS.md`, `CLAUDE.md` (project-level), `.cursorrules`, `GEMINI.md`, `copilot-instructions.md` in the project root. If an index file is found (e.g., `agents.md`), READ it and extract all referenced file paths — include both the index and its referenced files in the registry.
-3. **ALWAYS write `.atl/skill-registry.md`** in the project root (create `.atl/` if needed). This file is mode-independent — it's infrastructure, not an SDD artifact.
+2. Scan project conventions: check for `agents.md`, `AGENTS.md`, `CLAUDE.md` (project-level), `.cursorrules`, `GEMINI.md`, `copilot-instructions.md` in the project root. If an index file is found (e.g., `agents.md`), READ it and extract all referenced file paths â€” include both the index and its referenced files in the registry.
+3. **ALWAYS write `.atl/skill-registry.md`** in the project root (create `.atl/` if needed). This file is mode-independent â€” it's infrastructure, not an SDD artifact.
 4. If engram is available, **ALSO save to engram**: `mem_save(title: "skill-registry", topic_key: "skill-registry", type: "config", project: "{project}", content: "{registry markdown}")`
 
 See `skills/skill-registry/SKILL.md` for the full registry format and scanning details.
 
 ### Step 5: Persist Project Context
 
-**This step is MANDATORY — do NOT skip it.**
+**This step is MANDATORY â€” do NOT skip it.**
 
 If mode is `engram`:
 ```
@@ -173,9 +173,9 @@ Ready for /sdd-explore <topic> or /sdd-new <change-name>.
 **Persistence**: openspec
 
 ### Structure Created
-- openspec/config.yaml ← Project config with detected context
-- openspec/specs/      ← Ready for specifications
-- openspec/changes/    ← Ready for change proposals
+- openspec/config.yaml â† Project config with detected context
+- openspec/specs/      â† Ready for specifications
+- openspec/changes/    â† Ready for change proposals
 
 ### Next Steps
 Ready for /sdd-explore <topic> or /sdd-new <change-name>.
@@ -206,3 +206,5 @@ Ready for /sdd-explore <topic> or /sdd-new <change-name>.
 - If the project already has an `openspec/` directory, report what exists and ask the orchestrator if it should be updated
 - Keep config.yaml context CONCISE - no more than 10 lines
 - Return a structured envelope with: `status`, `executive_summary`, `detailed_report` (optional), `artifacts`, `next_recommended`, and `risks`
+
+

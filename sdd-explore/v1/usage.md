@@ -1,11 +1,11 @@
----
+﻿---
 name: sdd-explore
 description: >
   Explore and investigate ideas before committing to a change.
   Trigger: When the orchestrator launches you to think through a feature, investigate the codebase, or clarify requirements.
 license: MIT
 metadata:
-  author: transportationamerica-setup
+  author: gentleman-programming
   version: "2.0"
 scope:
   - sdd
@@ -36,9 +36,9 @@ The orchestrator will give you:
 
 - If mode is `engram`:
 
-  **Read context** (optional — load project context if available):
-  1. `mem_search(query: "sdd-init/{project}", project: "{project}")` → get observation ID
-  2. `mem_get_observation(id: {id from step 1})` → full project context
+  **Read context** (optional â€” load project context if available):
+  1. `mem_search(query: "sdd-init/{project}", project: "{project}")` â†’ get observation ID
+  2. `mem_get_observation(id: {id from step 1})` â†’ full project context
   (If no result, proceed without project context.)
 
   **Save your artifact**:
@@ -62,20 +62,20 @@ The orchestrator will give you:
       content: "{your full exploration markdown}"
     )
     ```
-  `topic_key` enables upserts — saving again updates, not duplicates. (Read `skills/_shared/sdd-phase-common.md`.)
+  `topic_key` enables upserts â€” saving again updates, not duplicates. (Read `skills/_shared/sdd-phase-common.md`.)
 
   (See `skills/_shared/engram-convention.md` for full naming conventions.)
 - If mode is `openspec`: Read and follow `skills/_shared/openspec-convention.md`.
-- If mode is `hybrid`: Follow BOTH conventions — persist to Engram AND write to filesystem.
+- If mode is `hybrid`: Follow BOTH conventions â€” persist to Engram AND write to filesystem.
 - If mode is `none`: Return result only.
 
 ### Retrieving Context
 
 Before starting, load any existing project context and specs per the active convention:
 - **engram**:
-  1. `mem_search(query: "sdd-init/{project}", project: "{project}")` → get observation ID
-  2. `mem_get_observation(id: {id from step 1})` → full project context
-  3. Optionally `mem_search(query: "sdd/", project: "{project}")` → find existing artifacts
+  1. `mem_search(query: "sdd-init/{project}", project: "{project}")` â†’ get observation ID
+  2. `mem_get_observation(id: {id from step 1})` â†’ full project context
+  3. Optionally `mem_search(query: "sdd/", project: "{project}")` â†’ find existing artifacts
   (If no results, proceed without prior context.)
 - **openspec**: Read `openspec/config.yaml` and `openspec/specs/`.
 - **none**: Use whatever context the orchestrator passed in the prompt.
@@ -104,11 +104,11 @@ Read relevant code to understand:
 
 ```
 INVESTIGATE:
-├── Read entry points and key files
-├── Search for related functionality
-├── Check existing tests (if any)
-├── Look for patterns already in use
-└── Identify dependencies and coupling
+â”œâ”€â”€ Read entry points and key files
+â”œâ”€â”€ Search for related functionality
+â”œâ”€â”€ Check existing tests (if any)
+â”œâ”€â”€ Look for patterns already in use
+â””â”€â”€ Identify dependencies and coupling
 ```
 
 ### Step 4: Analyze Options
@@ -122,7 +122,7 @@ If there are multiple approaches, compare them:
 
 ### Step 5: Persist Artifact
 
-**This step is MANDATORY when tied to a named change — do NOT skip it.**
+**This step is MANDATORY when tied to a named change â€” do NOT skip it.**
 
 If mode is `engram` and this exploration is tied to a change:
 ```
@@ -163,16 +163,16 @@ Return EXACTLY this format to the orchestrator (and write the same content to `e
 {How the system works today relevant to this topic}
 
 ### Affected Areas
-- `path/to/file.ext` — {why it's affected}
-- `path/to/other.ext` — {why it's affected}
+- `path/to/file.ext` â€” {why it's affected}
+- `path/to/other.ext` â€” {why it's affected}
 
 ### Approaches
-1. **{Approach name}** — {brief description}
+1. **{Approach name}** â€” {brief description}
    - Pros: {list}
    - Cons: {list}
    - Effort: {Low/Medium/High}
 
-2. **{Approach name}** — {brief description}
+2. **{Approach name}** â€” {brief description}
    - Pros: {list}
    - Cons: {list}
    - Effort: {Low/Medium/High}
@@ -185,7 +185,7 @@ Return EXACTLY this format to the orchestrator (and write the same content to `e
 - {Risk 2}
 
 ### Ready for Proposal
-{Yes/No — and what the orchestrator should tell the user}
+{Yes/No â€” and what the orchestrator should tell the user}
 ```
 
 ## Rules
@@ -197,3 +197,5 @@ Return EXACTLY this format to the orchestrator (and write the same content to `e
 - If you can't find enough information, say so clearly
 - If the request is too vague to explore, say what clarification is needed
 - Return a structured envelope with: `status`, `executive_summary`, `detailed_report` (optional), `artifacts`, `next_recommended`, and `risks` (read `skills/_shared/sdd-phase-common.md` for the full envelope spec)
+
+
