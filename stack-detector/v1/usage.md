@@ -1,4 +1,6 @@
 ﻿---
+metadata:
+  author: https://github.com/favelasquez
 name: stack-detector
 description: >
   Detecta automáticamente el stack tecnológico de un proyecto (Angular, Laravel, Python/FastAPI,
@@ -12,6 +14,8 @@ description: >
   versiones, construye un perfil de tecnología, y luego activa la skill de auditoría correcta
   con el contexto de versión adecuado para dar comentarios precisos y relevantes.
 ---
+metadata:
+  author: https://github.com/favelasquez
 
 # Stack Detector
 
@@ -20,6 +24,8 @@ Esta skill tiene DOS responsabilidades:
 2. **Activar** la skill de auditoría correcta con ese contexto de versión
 
 ---
+metadata:
+  author: https://github.com/favelasquez
 
 ## PASO 1 — Detección del Stack
 
@@ -45,6 +51,8 @@ Cuando el usuario comparte archivos o una ruta de proyecto, busca y lee:
 > Si el usuario comparte código suelto sin archivos de config, pide explícitamente el archivo de dependencias correspondiente. No asumas versiones.
 
 ---
+metadata:
+  author: https://github.com/favelasquez
 
 ## PASO 2 — Construir el Perfil de Stack
 
@@ -72,6 +80,8 @@ Una vez leídos los archivos, construye y muestra al usuario un **Perfil de Stac
 `
 
 ---
+metadata:
+  author: https://github.com/favelasquez
 
 ## PASO 3 — Activar la Skill de Auditoría Correcta
 
@@ -107,6 +117,8 @@ Con el perfil construido, **lee el archivo de referencia de versión correspondi
 - .NET 6/7/8/9 + EF Core → activa skill "csharp-ef-audit" sección modern
 
 ---
+metadata:
+  author: https://github.com/favelasquez
 
 ## PASO 4 — Auditoría con Contexto de Versión
 
@@ -125,6 +137,8 @@ Al hacer la auditoría, **siempre prefija cada observación con su relevancia de
 `
 
 ---
+metadata:
+  author: https://github.com/favelasquez
 
 ## PASO 5 — Stack Mixto / Monorepo
 
@@ -138,6 +152,8 @@ Si el proyecto tiene múltiples tecnologías (ej: frontend Angular + backend Lar
    `
 
 ---
+metadata:
+  author: https://github.com/favelasquez
 
 ## Preguntas de Clarificación
 
@@ -151,6 +167,8 @@ Si faltan archivos de configuración, pregunta directamente:
 No improvises versiones. Si no sabes la versión exacta, dilo y pide confirmación.
 
 ---
+metadata:
+  author: https://github.com/favelasquez
 
 ## Archivos de Referencia
 
@@ -160,3 +178,4 @@ Lee el archivo correspondiente ANTES de auditar cada tecnología:
 - "references/laravel-versions.md" — Diferencias clave entre versiones de Laravel  
 - "references/python-versions.md" — Diferencias entre versiones Python/FastAPI/Django
 - "references/dotnet-versions.md" — Diferencias entre versiones .NET/EF Core
+

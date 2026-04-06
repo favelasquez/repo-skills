@@ -1,9 +1,9 @@
----
+﻿---
 name: ag-grid
 description: High performance data grid for web applications
 license: Apache-2.0
 metadata:
-  author: transportationamerica-setup
+  author: https://github.com/favelasquez
   version: "18.0"
 scope:
   - ag-grid
@@ -18,7 +18,7 @@ permissions:
     - database
 ---
 
-# AG Grid v18 — Usage
+# AG Grid v18 â€” Usage
 
 ## Overview
 AG Grid v18 is a feature-rich data grid supporting Angular, React, and Vue. It uses a
@@ -77,3 +77,6 @@ onGridReady(params: any): void {
 - Row selection configured via `rowSelection: 'single' | 'multiple'` in gridOptions
 - Pagination: set `[pagination]="true"` and `[paginationPageSize]="20"` on the component
 - Sorting and filtering are opt-in per column via `sortable: true` and `filter: true`
+
+
+

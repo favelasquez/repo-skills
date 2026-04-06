@@ -1,9 +1,9 @@
----
+﻿---
 name: resolve-conflicts
 description: Resuelve conflictos de merge en el archivo abierto, preservando los cambios entrantes como base y adicionando los cambios de la rama actual
 license: Apache-2.0
 metadata:
-  author: transportationamerica-setup
+  author: https://github.com/favelasquez
   version: "1.0"
 scope:
   - git
@@ -18,11 +18,11 @@ permissions:
     - database
 ---
 
-# Resolve Conflicts v1 — Resolución de conflictos de merge
+# Resolve Conflicts v1 â€” ResoluciÃ³n de conflictos de merge
 
-Eres un experto en resolución de conflictos de Git. Cuando el usuario invoque este skill, **debes analizar y resolver los conflictos del archivo actualmente abierto** siguiendo estas reglas.
+Eres un experto en resoluciÃ³n de conflictos de Git. Cuando el usuario invoque este skill, **debes analizar y resolver los conflictos del archivo actualmente abierto** siguiendo estas reglas.
 
-## Estrategia de resolución
+## Estrategia de resoluciÃ³n
 
 Para cada bloque de conflicto encontrado en el archivo:
 
@@ -34,11 +34,11 @@ Para cada bloque de conflicto encontrado en el archivo:
 >>>>>>> rama-entrante
 ```
 
-**Regla:** Preservar los cambios de la rama **entrante** (`=======` → `>>>>>>>`) como base, y **adicionar** los cambios de la rama **actual** (`<<<<<<< HEAD` → `=======`) que no existan ya en la parte entrante.
+**Regla:** Preservar los cambios de la rama **entrante** (`=======` â†’ `>>>>>>>`) como base, y **adicionar** los cambios de la rama **actual** (`<<<<<<< HEAD` â†’ `=======`) que no existan ya en la parte entrante.
 
-- Si el cambio de la rama actual es una adición nueva (línea/bloque que no está en la entrante) → **incluirlo después de los cambios entrantes**
-- Si el cambio de la rama actual ya existe en la parte entrante → **omitirlo** (no duplicar)
-- Si el cambio de la rama actual modifica algo que también modifica la entrante → **conservar la versión entrante** y descartar la de la rama actual
+- Si el cambio de la rama actual es una adiciÃ³n nueva (lÃ­nea/bloque que no estÃ¡ en la entrante) â†’ **incluirlo despuÃ©s de los cambios entrantes**
+- Si el cambio de la rama actual ya existe en la parte entrante â†’ **omitirlo** (no duplicar)
+- Si el cambio de la rama actual modifica algo que tambiÃ©n modifica la entrante â†’ **conservar la versiÃ³n entrante** y descartar la de la rama actual
 
 ## Flujo a ejecutar
 
@@ -46,18 +46,18 @@ Para cada bloque de conflicto encontrado en el archivo:
 2. **Identificar todos los bloques de conflicto** (`<<<<<<<`, `=======`, `>>>>>>>`)
 3. **Aplicar la estrategia** bloque por bloque
 4. **Reescribir el archivo** con los conflictos resueltos, eliminando todos los marcadores de conflicto
-5. **Reportar al usuario** qué se hizo en cada conflicto:
-   - Cuántos conflictos había
-   - Qué se conservó de la rama entrante
-   - Qué se adicionó de la rama actual
-   - Qué se descartó y por qué
+5. **Reportar al usuario** quÃ© se hizo en cada conflicto:
+   - CuÃ¡ntos conflictos habÃ­a
+   - QuÃ© se conservÃ³ de la rama entrante
+   - QuÃ© se adicionÃ³ de la rama actual
+   - QuÃ© se descartÃ³ y por quÃ©
 
 ## Reglas importantes
 
-- **Nunca** eliminar código que no sea marcador de conflicto sin justificarlo
-- **Nunca** mezclar lógica de ambas ramas si generaría código inválido o duplicado
+- **Nunca** eliminar cÃ³digo que no sea marcador de conflicto sin justificarlo
+- **Nunca** mezclar lÃ³gica de ambas ramas si generarÃ­a cÃ³digo invÃ¡lido o duplicado
 - Si un conflicto es ambiguo o arriesgado, **preguntar al usuario** antes de resolverlo
-- Respetar el **formato, indentación y estilo** del archivo original
+- Respetar el **formato, indentaciÃ³n y estilo** del archivo original
 - Si el archivo no tiene conflictos, informarlo al usuario
 
 ## Ejemplo
@@ -74,7 +74,7 @@ function calcularTotal(items) {
 }
 ```
 
-**Después** (se conserva la entrante como base y se adiciona el descuento de la rama actual):
+**DespuÃ©s** (se conserva la entrante como base y se adiciona el descuento de la rama actual):
 ```
 function calcularTotal(items) {
   const descuento = aplicarDescuento(items);
@@ -82,4 +82,7 @@ function calcularTotal(items) {
 }
 ```
 
-> La rama entrante tenía el reduce base. La rama actual agregaba el descuento, que es una adición nueva → se incluye.
+> La rama entrante tenÃ­a el reduce base. La rama actual agregaba el descuento, que es una adiciÃ³n nueva â†’ se incluye.
+
+
+

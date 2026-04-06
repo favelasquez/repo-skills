@@ -1,34 +1,40 @@
----
+﻿---
+metadata:
+  author: https://github.com/favelasquez
 name: engram-install-setup
 description: >
-  Skill para instalar, configurar y verificar Engram en la máquina del usuario.
+  Skill para instalar, configurar y verificar Engram en la mÃ¡quina del usuario.
   Activar cuando el usuario quiera instalar Engram, configurarlo en Claude Code,
-  Cursor, Windsurf, VS Code Copilot, OpenCode o Gemini CLI, cuando pregunte cómo
-  empezar con Engram, cuando tenga problemas de instalación, cuando quiera configurar
+  Cursor, Windsurf, VS Code Copilot, OpenCode o Gemini CLI, cuando pregunte cÃ³mo
+  empezar con Engram, cuando tenga problemas de instalaciÃ³n, cuando quiera configurar
   Engram como servicio en background, o cuando diga "instala Engram", "configura
-  Engram en mi agente", "engram no funciona", "cómo conecto Engram con Claude Code".
-  Esta skill ejecuta los pasos de instalación reales, verifica que funcionen, y deja
+  Engram en mi agente", "engram no funciona", "cÃ³mo conecto Engram con Claude Code".
+  Esta skill ejecuta los pasos de instalaciÃ³n reales, verifica que funcionen, y deja
   el sistema listo para usar.
 ---
+metadata:
+  author: https://github.com/favelasquez
 
-# Engram Install & Setup — Instalación y configuración guiada
+# Engram Install & Setup â€” InstalaciÃ³n y configuraciÃ³n guiada
 
-## Paso 1 — Detectar el sistema antes de actuar
+## Paso 1 â€” Detectar el sistema antes de actuar
 
 ```bash
 # Detectar OS y herramientas disponibles
 uname -s                    # Darwin=macOS, Linux=Linux
-which brew 2>/dev/null      # ¿tiene Homebrew?
-which go 2>/dev/null        # ¿tiene Go?
-which engram 2>/dev/null    # ¿ya está instalado?
-echo $PATH                  # verificar que ~/.local/bin esté en PATH
+which brew 2>/dev/null      # Â¿tiene Homebrew?
+which go 2>/dev/null        # Â¿tiene Go?
+which engram 2>/dev/null    # Â¿ya estÃ¡ instalado?
+echo $PATH                  # verificar que ~/.local/bin estÃ© en PATH
 ```
 
 ---
+metadata:
+  author: https://github.com/favelasquez
 
-## Paso 2 — Instalar el binario
+## Paso 2 â€” Instalar el binario
 
-### macOS (Homebrew — recomendado)
+### macOS (Homebrew â€” recomendado)
 ```bash
 brew install gentleman-programming/tap/engram
 ```
@@ -44,27 +50,29 @@ go build -o engram ./cmd/engram
 mkdir -p ~/.local/bin
 mv engram ~/.local/bin/engram
 
-# Verificar que ~/.local/bin está en PATH
+# Verificar que ~/.local/bin estÃ¡ en PATH
 echo 'export PATH="$HOME/.local/bin:$PATH"' >> ~/.zshrc   # o ~/.bashrc
 source ~/.zshrc
 ```
 
-### Verificar instalación
+### Verificar instalaciÃ³n
 ```bash
 engram version
 # Esperado: engram vX.X.X
 ```
 
 ---
+metadata:
+  author: https://github.com/favelasquez
 
-## Paso 3 — Setup por agente
+## Paso 3 â€” Setup por agente
 
 ### Claude Code
 ```bash
 claude plugin marketplace add Gentleman-Programming/engram
 claude plugin install engram
-# El plugin inyecta automáticamente el Memory Protocol en el system prompt
-# No necesita configuración adicional
+# El plugin inyecta automÃ¡ticamente el Memory Protocol en el system prompt
+# No necesita configuraciÃ³n adicional
 ```
 
 ### OpenCode
@@ -83,7 +91,7 @@ code --add-mcp '{"name":"engram","command":"engram","args":["mcp"]}'
 ```
 
 ### Cursor / Windsurf / cualquier agente con MCP manual
-Agregar a la configuración MCP del agente:
+Agregar a la configuraciÃ³n MCP del agente:
 ```json
 {
   "mcp": {
@@ -96,12 +104,14 @@ Agregar a la configuración MCP del agente:
 }
 ```
 
-**En Cursor:** Settings → MCP → Add Server → pegar el JSON de arriba
+**En Cursor:** Settings â†’ MCP â†’ Add Server â†’ pegar el JSON de arriba
 **En Windsurf:** ~/.codeium/windsurf/mcp_config.json
 
 ---
+metadata:
+  author: https://github.com/favelasquez
 
-## Paso 4 — Iniciar el servidor HTTP (opcional pero recomendado)
+## Paso 4 â€” Iniciar el servidor HTTP (opcional pero recomendado)
 
 ```bash
 # Probar que funciona
@@ -136,7 +146,7 @@ systemctl --user start engram
 systemctl --user status engram   # verificar
 ```
 
-### macOS — LaunchAgent (background permanente)
+### macOS â€” LaunchAgent (background permanente)
 ```bash
 mkdir -p ~/Library/LaunchAgents
 
@@ -171,8 +181,10 @@ curl http://localhost:7437/health
 ```
 
 ---
+metadata:
+  author: https://github.com/favelasquez
 
-## Paso 5 — Verificación completa
+## Paso 5 â€” VerificaciÃ³n completa
 
 ```bash
 # 1. Binario accesible
@@ -197,15 +209,17 @@ engram tui
 ```
 
 ---
+metadata:
+  author: https://github.com/favelasquez
 
-## Troubleshooting de instalación
+## Troubleshooting de instalaciÃ³n
 
 ### `engram: command not found`
 ```bash
-# Verificar dónde está el binario
+# Verificar dÃ³nde estÃ¡ el binario
 find ~ -name "engram" -type f 2>/dev/null
 
-# Añadir al PATH
+# AÃ±adir al PATH
 echo 'export PATH="$HOME/.local/bin:$HOME/go/bin:$PATH"' >> ~/.zshrc
 source ~/.zshrc
 ```
@@ -221,7 +235,7 @@ claude plugin install engram
 
 ### Puerto 7437 ya en uso
 ```bash
-lsof -i :7437                    # ver qué proceso lo usa
+lsof -i :7437                    # ver quÃ© proceso lo usa
 # Usar otro puerto:
 ENGRAM_PORT=7438 engram serve
 # Actualizar la config del agente con el nuevo puerto
@@ -233,16 +247,18 @@ ENGRAM_PORT=7438 engram serve
 xattr -dr com.apple.quarantine $(which engram)
 ```
 
-### Engram no recuerda nada después de reiniciar
+### Engram no recuerda nada despuÃ©s de reiniciar
 ```bash
-# Verificar dónde guarda los datos
+# Verificar dÃ³nde guarda los datos
 ls ~/.engram/
-# Si está vacío, el ENGRAM_DATA_DIR puede ser diferente
+# Si estÃ¡ vacÃ­o, el ENGRAM_DATA_DIR puede ser diferente
 echo $ENGRAM_DATA_DIR
 # Asegurarse de que el servicio usa el mismo directorio siempre
 ```
 
 ---
+metadata:
+  author: https://github.com/favelasquez
 
 ## Variables de entorno
 
@@ -253,13 +269,16 @@ export ENGRAM_PORT=7437             # puerto HTTP (default)
 ```
 
 ---
+metadata:
+  author: https://github.com/favelasquez
 
-## Checklist de instalación exitosa
+## Checklist de instalaciÃ³n exitosa
 
-- [ ] `engram version` devuelve una versión
+- [ ] `engram version` devuelve una versiÃ³n
 - [ ] `curl http://localhost:7437/health` devuelve `{"status":"ok"}`
 - [ ] `engram search "test"` no da error
 - [ ] El agente (Claude Code/Cursor/etc.) muestra Engram en sus tools MCP
 - [ ] `engram tui` abre la interfaz correctamente
 
-Cuando todo el checklist esté verde, Engram está listo para usar.
+Cuando todo el checklist estÃ© verde, Engram estÃ¡ listo para usar.
+

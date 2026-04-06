@@ -1,76 +1,76 @@
----
+﻿---
 name: fastapi-audit
 description: >
-  Skill auditora experta de código Python con FastAPI, cubriendo todas las versiones
+  Skill auditora experta de cÃ³digo Python con FastAPI, cubriendo todas las versiones
   desde Python 3.8 hasta 3.12+ y FastAPI 0.9x hasta 0.11x. Activar siempre que el
-  usuario pida revisar, auditar, corregir o mejorar código Python con FastAPI, o cuando
+  usuario pida revisar, auditar, corregir o mejorar cÃ³digo Python con FastAPI, o cuando
   mencione routers, dependencias, Pydantic, SQLAlchemy async, Alembic, JWT, OAuth2,
   Celery, async/await, background tasks, middleware, CORS, WebSockets, o cualquier
-  concepto del ecosistema FastAPI. También activar cuando el usuario muestre código con
-  posibles problemas de bloqueo del event loop, N+1 en SQLAlchemy, validación insuficiente,
-  secrets expuestos, endpoints sin autenticación, o dependencias mal gestionadas. Esta
+  concepto del ecosistema FastAPI. TambiÃ©n activar cuando el usuario muestre cÃ³digo con
+  posibles problemas de bloqueo del event loop, N+1 en SQLAlchemy, validaciÃ³n insuficiente,
+  secrets expuestos, endpoints sin autenticaciÃ³n, o dependencias mal gestionadas. Esta
   skill detecta bugs silenciosos, antipatrones async y vulnerabilidades de seguridad con
-  ejemplos corregidos listos para producción en todas las versiones de FastAPI.
+  ejemplos corregidos listos para producciÃ³n en todas las versiones de FastAPI.
 ---
 
-# FastAPI — Skill Auditora Experta
+# FastAPI â€” Skill Auditora Experta
 
-## Paso 1 — Detectar versión del stack antes de auditar
+## Paso 1 â€” Detectar versiÃ³n del stack antes de auditar
 
 ```
-¿Qué versión de Python?
-  match statement, X | Y en match  → Python 3.10+
-  str | None (union types)          → Python 3.10+
-  tomllib nativo                    → Python 3.11+
-  typing.Self                       → Python 3.11+
+Â¿QuÃ© versiÃ³n de Python?
+  match statement, X | Y en match  â†’ Python 3.10+
+  str | None (union types)          â†’ Python 3.10+
+  tomllib nativo                    â†’ Python 3.11+
+  typing.Self                       â†’ Python 3.11+
 
-¿Qué versión de Pydantic?
-  from pydantic import validator    → Pydantic v1
-  from pydantic import field_validator → Pydantic v2
-  model.dict()                      → Pydantic v1 (deprecated en v2)
-  model.model_dump()                → Pydantic v2
+Â¿QuÃ© versiÃ³n de Pydantic?
+  from pydantic import validator    â†’ Pydantic v1
+  from pydantic import field_validator â†’ Pydantic v2
+  model.dict()                      â†’ Pydantic v1 (deprecated en v2)
+  model.model_dump()                â†’ Pydantic v2
 
-¿Qué versión de SQLAlchemy?
-  from sqlalchemy.ext.asyncio       → SQLAlchemy 1.4+ async
-  async_sessionmaker                → SQLAlchemy 2.0+
-  session.execute(select(Model))    → SQLAlchemy 2.0 (nuevo estilo)
-  session.query(Model)              → SQLAlchemy 1.x (estilo legacy)
+Â¿QuÃ© versiÃ³n de SQLAlchemy?
+  from sqlalchemy.ext.asyncio       â†’ SQLAlchemy 1.4+ async
+  async_sessionmaker                â†’ SQLAlchemy 2.0+
+  session.execute(select(Model))    â†’ SQLAlchemy 2.0 (nuevo estilo)
+  session.query(Model)              â†’ SQLAlchemy 1.x (estilo legacy)
 
-¿Async o sync?
-  async def + await                 → async (correcto para FastAPI)
-  def sin async en endpoint         → SYNC — puede bloquear el event loop ⚠️
+Â¿Async o sync?
+  async def + await                 â†’ async (correcto para FastAPI)
+  def sin async en endpoint         â†’ SYNC â€” puede bloquear el event loop âš ï¸
 ```
 
-### Trampas críticas por versión
+### Trampas crÃ­ticas por versiÃ³n
 
 | Stack | Trampa principal |
 |---|---|
-| FastAPI + Pydantic v1 | `orm_mode = True` en Config — olvidarlo rompe la serialización de ORM |
-| FastAPI + Pydantic v2 | `from_attributes = True` reemplaza `orm_mode` — mezclarlos falla silenciosamente |
-| SQLAlchemy 1.4 async | Session no es thread-safe — compartirla entre requests corrompe datos |
-| SQLAlchemy 2.0 | `session.query()` está deprecated — usar `select()` + `session.execute()` |
-| Python 3.8/3.9 | `list[str]` en type hints no funciona — usar `List[str]` de `typing` |
+| FastAPI + Pydantic v1 | `orm_mode = True` en Config â€” olvidarlo rompe la serializaciÃ³n de ORM |
+| FastAPI + Pydantic v2 | `from_attributes = True` reemplaza `orm_mode` â€” mezclarlos falla silenciosamente |
+| SQLAlchemy 1.4 async | Session no es thread-safe â€” compartirla entre requests corrompe datos |
+| SQLAlchemy 2.0 | `session.query()` estÃ¡ deprecated â€” usar `select()` + `session.execute()` |
+| Python 3.8/3.9 | `list[str]` en type hints no funciona â€” usar `List[str]` de `typing` |
 
 ---
 
-## Perfil configurado — áreas prioritarias
+## Perfil configurado â€” Ã¡reas prioritarias
 
-**Versión base:** Python 3.8 / 3.9 + FastAPI 0.9x + **Pydantic v1**
+**VersiÃ³n base:** Python 3.8 / 3.9 + FastAPI 0.9x + **Pydantic v1**
 **Auditar en este orden:**
-1. 🔴 Async — bloqueos del event loop, I/O síncrono en endpoints async
-2. 🔴 Seguridad — JWT mal validado, endpoints sin auth, secrets en código
-3. 🔴 Arquitectura — routers, schemas, dependencias, separación de capas
-4. 🔴 Base de datos — N+1 en SQLAlchemy, session lifecycle, lazy loading
+1. ðŸ”´ Async â€” bloqueos del event loop, I/O sÃ­ncrono en endpoints async
+2. ðŸ”´ Seguridad â€” JWT mal validado, endpoints sin auth, secrets en cÃ³digo
+3. ðŸ”´ Arquitectura â€” routers, schemas, dependencias, separaciÃ³n de capas
+4. ðŸ”´ Base de datos â€” N+1 en SQLAlchemy, session lifecycle, lazy loading
 
-### ⚠️ Restricciones específicas de Python 3.8/3.9 — revisar siempre
+### âš ï¸ Restricciones especÃ­ficas de Python 3.8/3.9 â€” revisar siempre
 
 ```python
-# ❌ ROMPE en Python 3.8/3.9 — built-in generics en hints
+# âŒ ROMPE en Python 3.8/3.9 â€” built-in generics en hints
 def get_items() -> list[str]: ...          # solo Python 3.9+
 def get_map()   -> dict[str, int]: ...     # solo Python 3.9+
 def get_opt()   -> str | None: ...         # solo Python 3.10+
 
-# ✅ CORRECTO para Python 3.8 — importar de typing
+# âœ… CORRECTO para Python 3.8 â€” importar de typing
 from typing import List, Dict, Optional, Union, Tuple, Set, Any
 
 def get_items() -> List[str]: ...
@@ -78,22 +78,22 @@ def get_map()   -> Dict[str, int]: ...
 def get_opt()   -> Optional[str]: ...      # Optional[X] = Union[X, None]
 def get_union() -> Union[str, int]: ...
 
-# ❌ ROMPE en Python 3.8 — Annotated no existe en typing
+# âŒ ROMPE en Python 3.8 â€” Annotated no existe en typing
 from typing import Annotated               # solo Python 3.9+
 
-# ✅ CORRECTO para 3.8 — backport
+# âœ… CORRECTO para 3.8 â€” backport
 from __future__ import annotations         # habilita hints diferidos (3.8+)
 from typing_extensions import Annotated   # pip install typing_extensions
 
-# FastAPI 0.9x — estilo clásico de Depends (no Annotated)
+# FastAPI 0.9x â€” estilo clÃ¡sico de Depends (no Annotated)
 # field: Type = Depends(func)   <- estilo 0.9x correcto
 # field: Annotated[Type, Depends(func)]  <- estilo 0.10x+, evitar en 0.9x
 ```
 
-### Pydantic v1 — sintaxis correcta para este stack
+### Pydantic v1 â€” sintaxis correcta para este stack
 
 ```python
-# ✅ Pydantic v1 (la que viene con FastAPI 0.9x)
+# âœ… Pydantic v1 (la que viene con FastAPI 0.9x)
 from pydantic import BaseModel, validator, Field
 from typing import Optional, List
 
@@ -107,89 +107,89 @@ class PostCreate(BaseModel):
         return v.strip()
 
     class Config:
-        orm_mode = True    # ✅ v1 — NO from_attributes (eso es v2)
+        orm_mode = True    # âœ… v1 â€” NO from_attributes (eso es v2)
 
-# Serialización v1
-user.dict()                # ✅ v1 — NO model_dump()
-user.json()                # ✅ v1 — NO model_dump_json()
+# SerializaciÃ³n v1
+user.dict()                # âœ… v1 â€” NO model_dump()
+user.json()                # âœ… v1 â€” NO model_dump_json()
 
-# ❌ Mezclar v1 y v2 rompe silenciosamente
-# @field_validator  → solo Pydantic v2
-# model_dump()      → solo Pydantic v2
-# ConfigDict(...)   → solo Pydantic v2
+# âŒ Mezclar v1 y v2 rompe silenciosamente
+# @field_validator  â†’ solo Pydantic v2
+# model_dump()      â†’ solo Pydantic v2
+# ConfigDict(...)   â†’ solo Pydantic v2
 ```
 
 > Archivos de referencia:
-> - `references/async-patterns.md` — Event loop, bloqueos, background tasks, WebSockets
-> - `references/seguridad.md` — JWT/OAuth2, permisos, CORS, rate limiting, secrets
-> - `references/sqlalchemy-async.md` — Session lifecycle, N+1, migrations con Alembic
-> - `references/arquitectura.md` — Routers, dependencies, schemas, repository pattern
-> - `references/pydantic-v2.md` — Validators v2 (referencia para migración futura)
+> - `references/async-patterns.md` â€” Event loop, bloqueos, background tasks, WebSockets
+> - `references/seguridad.md` â€” JWT/OAuth2, permisos, CORS, rate limiting, secrets
+> - `references/sqlalchemy-async.md` â€” Session lifecycle, N+1, migrations con Alembic
+> - `references/arquitectura.md` â€” Routers, dependencies, schemas, repository pattern
+> - `references/pydantic-v2.md` â€” Validators v2 (referencia para migraciÃ³n futura)
 
 ---
 
-## Checklist de auditoría — ejecutar en cada revisión
+## Checklist de auditorÃ­a â€” ejecutar en cada revisiÃ³n
 
-### 🔴 Async — Event Loop
+### ðŸ”´ Async â€” Event Loop
 
-- [ ] ¿Hay funciones bloqueantes (`requests.get`, `time.sleep`, `open()`) dentro de `async def`?
-- [ ] ¿Las operaciones CPU-intensivas corren en el event loop sin `run_in_executor`?
-- [ ] ¿Se usa `asyncio.sleep` en lugar de `time.sleep` en contextos async?
-- [ ] ¿Los endpoints sync pesados usan `def` (no `async def`) para que FastAPI los delegue a threadpool?
-- [ ] ¿Las sesiones de SQLAlchemy se crean con `async with` y no se comparten entre requests?
-- [ ] ¿Los background tasks pesados van a Celery/Redis en lugar de `BackgroundTasks`?
+- [ ] Â¿Hay funciones bloqueantes (`requests.get`, `time.sleep`, `open()`) dentro de `async def`?
+- [ ] Â¿Las operaciones CPU-intensivas corren en el event loop sin `run_in_executor`?
+- [ ] Â¿Se usa `asyncio.sleep` en lugar de `time.sleep` en contextos async?
+- [ ] Â¿Los endpoints sync pesados usan `def` (no `async def`) para que FastAPI los delegue a threadpool?
+- [ ] Â¿Las sesiones de SQLAlchemy se crean con `async with` y no se comparten entre requests?
+- [ ] Â¿Los background tasks pesados van a Celery/Redis en lugar de `BackgroundTasks`?
 
-### 🔴 Seguridad
+### ðŸ”´ Seguridad
 
-- [ ] ¿Los tokens JWT verifican `exp`, `iss` y `aud` además de la firma?
-- [ ] ¿Los endpoints sensibles tienen dependencia de autenticación?
-- [ ] ¿Los secrets están en variables de entorno, no en código fuente?
-- [ ] ¿CORS está configurado con origins específicos, no `allow_origins=["*"]` en producción?
-- [ ] ¿Los endpoints tienen rate limiting?
-- [ ] ¿Las contraseñas usan `bcrypt`/`argon2`, nunca `md5`/`sha1`?
-- [ ] ¿Los errores de auth devuelven mensajes genéricos (no "usuario no existe" vs "contraseña incorrecta")?
+- [ ] Â¿Los tokens JWT verifican `exp`, `iss` y `aud` ademÃ¡s de la firma?
+- [ ] Â¿Los endpoints sensibles tienen dependencia de autenticaciÃ³n?
+- [ ] Â¿Los secrets estÃ¡n en variables de entorno, no en cÃ³digo fuente?
+- [ ] Â¿CORS estÃ¡ configurado con origins especÃ­ficos, no `allow_origins=["*"]` en producciÃ³n?
+- [ ] Â¿Los endpoints tienen rate limiting?
+- [ ] Â¿Las contraseÃ±as usan `bcrypt`/`argon2`, nunca `md5`/`sha1`?
+- [ ] Â¿Los errores de auth devuelven mensajes genÃ©ricos (no "usuario no existe" vs "contraseÃ±a incorrecta")?
 
-### 🔴 SQLAlchemy async
+### ðŸ”´ SQLAlchemy async
 
-- [ ] ¿Se usa `selectinload()` o `joinedload()` en lugar de acceder a relaciones lazy?
-- [ ] ¿La sesión se maneja con `async with AsyncSession` por request?
-- [ ] ¿Las queries usan el nuevo estilo `select()` de SA 2.0 o el legacy `session.query()`?
-- [ ] ¿Los `relationship()` tienen `lazy="raise"` para detectar N+1 en desarrollo?
-- [ ] ¿Se usa `await session.commit()` o se olvida el await?
+- [ ] Â¿Se usa `selectinload()` o `joinedload()` en lugar de acceder a relaciones lazy?
+- [ ] Â¿La sesiÃ³n se maneja con `async with AsyncSession` por request?
+- [ ] Â¿Las queries usan el nuevo estilo `select()` de SA 2.0 o el legacy `session.query()`?
+- [ ] Â¿Los `relationship()` tienen `lazy="raise"` para detectar N+1 en desarrollo?
+- [ ] Â¿Se usa `await session.commit()` o se olvida el await?
 
-### 🟠 Arquitectura
+### ðŸŸ  Arquitectura
 
-- [ ] ¿La lógica de negocio está en los routers/endpoints en lugar de en servicios?
-- [ ] ¿Los schemas de entrada (request) y salida (response) están separados?
-- [ ] ¿Las dependencias (`Depends`) se reutilizan en lugar de repetir lógica?
-- [ ] ¿Los routers tienen `prefix` y `tags` para organización y documentación?
-- [ ] ¿Se usa `response_model` para controlar qué datos se exponen?
+- [ ] Â¿La lÃ³gica de negocio estÃ¡ en los routers/endpoints en lugar de en servicios?
+- [ ] Â¿Los schemas de entrada (request) y salida (response) estÃ¡n separados?
+- [ ] Â¿Las dependencias (`Depends`) se reutilizan en lugar de repetir lÃ³gica?
+- [ ] Â¿Los routers tienen `prefix` y `tags` para organizaciÃ³n y documentaciÃ³n?
+- [ ] Â¿Se usa `response_model` para controlar quÃ© datos se exponen?
 
-### 🟡 Pydantic v1 (stack Python 3.8/3.9 + FastAPI 0.9x)
+### ðŸŸ¡ Pydantic v1 (stack Python 3.8/3.9 + FastAPI 0.9x)
 
-- [ ] ¿Los schemas usan `class Config: orm_mode = True` (no `ConfigDict`)?
-- [ ] ¿Los validators usan `@validator` (no `@field_validator`)?
-- [ ] ¿La serialización usa `.dict()` / `.json()` (no `.model_dump()`)?
-- [ ] ¿Los type hints usan `Optional[X]`, `List[X]`, `Dict[X,Y]` de `typing` (no `X | None`, `list[X]`)?
-- [ ] ¿`Annotated` viene de `typing_extensions` si el proyecto es Python 3.8?
+- [ ] Â¿Los schemas usan `class Config: orm_mode = True` (no `ConfigDict`)?
+- [ ] Â¿Los validators usan `@validator` (no `@field_validator`)?
+- [ ] Â¿La serializaciÃ³n usa `.dict()` / `.json()` (no `.model_dump()`)?
+- [ ] Â¿Los type hints usan `Optional[X]`, `List[X]`, `Dict[X,Y]` de `typing` (no `X | None`, `list[X]`)?
+- [ ] Â¿`Annotated` viene de `typing_extensions` si el proyecto es Python 3.8?
 
 ---
 
-## Bugs críticos más comunes
+## Bugs crÃ­ticos mÃ¡s comunes
 
-### 1. Bloquear el event loop — el más peligroso en FastAPI
+### 1. Bloquear el event loop â€” el mÃ¡s peligroso en FastAPI
 
 ```python
-# ❌ BLOQUEA el event loop — congela TODOS los requests mientras duerme/lee
+# âŒ BLOQUEA el event loop â€” congela TODOS los requests mientras duerme/lee
 @app.get("/users/{id}")
 async def get_user(id: int):
     time.sleep(2)                    # bloquea el event loop 2 segundos
-    data = requests.get("http://...")  # I/O síncrono — bloquea
-    with open("file.txt") as f:       # I/O de disco síncrono — bloquea
+    data = requests.get("http://...")  # I/O sÃ­ncrono â€” bloquea
+    with open("file.txt") as f:       # I/O de disco sÃ­ncrono â€” bloquea
         content = f.read()
     return {"data": data.json()}
 
-# ✅ CORRECTO — async I/O con httpx y aiofiles
+# âœ… CORRECTO â€” async I/O con httpx y aiofiles
 import httpx
 import aiofiles
 
@@ -202,44 +202,44 @@ async def get_user(id: int):
         content = await f.read()
     return {"data": data.json()}
 
-# ✅ CORRECTO — operación CPU-intensiva: usar run_in_executor
+# âœ… CORRECTO â€” operaciÃ³n CPU-intensiva: usar run_in_executor
 import asyncio
 from concurrent.futures import ThreadPoolExecutor
 
 @app.get("/process")
 async def process_heavy():
     loop = asyncio.get_event_loop()
-    # Delega a threadpool — no bloquea el event loop
+    # Delega a threadpool â€” no bloquea el event loop
     result = await loop.run_in_executor(None, heavy_cpu_function, arg1, arg2)
     return {"result": result}
 
-# ✅ CORRECTO — endpoint sync para I/O síncrono legacy
-# FastAPI delega los `def` (no async) a un threadpool automáticamente
+# âœ… CORRECTO â€” endpoint sync para I/O sÃ­ncrono legacy
+# FastAPI delega los `def` (no async) a un threadpool automÃ¡ticamente
 @app.get("/legacy")
-def get_legacy_data():           # SIN async — FastAPI lo corre en threadpool
+def get_legacy_data():           # SIN async â€” FastAPI lo corre en threadpool
     return requests.get("http://legacy-api.com/data").json()
 ```
 
 ### 2. Session de SQLAlchemy compartida o sin await
 
 ```python
-# ❌ Sesión global compartida — corrupción de datos en concurrencia
+# âŒ SesiÃ³n global compartida â€” corrupciÃ³n de datos en concurrencia
 engine = create_async_engine(DATABASE_URL)
-session = AsyncSession(engine)   # una sola sesión para todos los requests
+session = AsyncSession(engine)   # una sola sesiÃ³n para todos los requests
 
 @app.get("/users")
 async def get_users():
     result = await session.execute(select(User))  # compartida entre requests
     return result.scalars().all()
 
-# ❌ Olvidar el await en operaciones de sesión
+# âŒ Olvidar el await en operaciones de sesiÃ³n
 async def create_user(db: AsyncSession, data: UserCreate):
     user = User(**data.model_dump())
     db.add(user)
-    db.commit()        # ← falta await — no hace nada, retorna coroutine sin ejecutar
-    db.refresh(user)   # ← ídem
+    db.commit()        # â† falta await â€” no hace nada, retorna coroutine sin ejecutar
+    db.refresh(user)   # â† Ã­dem
 
-# ✅ CORRECTO — sesión por request con Depends
+# âœ… CORRECTO â€” sesiÃ³n por request con Depends
 from sqlalchemy.ext.asyncio import AsyncSession, async_sessionmaker, create_async_engine
 
 engine = create_async_engine(settings.DATABASE_URL, pool_pre_ping=True)
@@ -260,16 +260,16 @@ async def get_users(db: AsyncSession = Depends(get_db)):
     return result.scalars().all()
 ```
 
-### 3. JWT sin validación completa
+### 3. JWT sin validaciÃ³n completa
 
 ```python
-# ❌ Solo verifica la firma — no verifica expiración ni audience
+# âŒ Solo verifica la firma â€” no verifica expiraciÃ³n ni audience
 def get_current_user(token: str):
     payload = jwt.decode(token, SECRET_KEY, algorithms=["HS256"])
-    # Sin options — si el token expiró, igual lo acepta
-    # Sin audience — cualquier servicio puede usar el token
+    # Sin options â€” si el token expirÃ³, igual lo acepta
+    # Sin audience â€” cualquier servicio puede usar el token
 
-# ✅ Validación completa del JWT
+# âœ… ValidaciÃ³n completa del JWT
 from jose import JWTError, jwt
 from datetime import datetime, timezone
 
@@ -306,19 +306,19 @@ async def get_current_user(
     return user
 ```
 
-### 4. N+1 en SQLAlchemy async — lazy loading que explota
+### 4. N+1 en SQLAlchemy async â€” lazy loading que explota
 
 ```python
-# ❌ N+1 — acceder a relación lazy dentro de async context lanza excepción
-# (o si está en modo "select", dispara N queries)
+# âŒ N+1 â€” acceder a relaciÃ³n lazy dentro de async context lanza excepciÃ³n
+# (o si estÃ¡ en modo "select", dispara N queries)
 @app.get("/posts")
 async def get_posts(db: AsyncSession = Depends(get_db)):
     result = await db.execute(select(Post))
     posts = result.scalars().all()
-    # ❌ En async SQLAlchemy, lazy loading lanza MissingGreenlet
+    # âŒ En async SQLAlchemy, lazy loading lanza MissingGreenlet
     return [{"title": p.title, "author": p.author.name} for p in posts]
 
-# ✅ CORRECTO — eager loading explícito con selectinload o joinedload
+# âœ… CORRECTO â€” eager loading explÃ­cito con selectinload o joinedload
 from sqlalchemy.orm import selectinload, joinedload
 
 @app.get("/posts", response_model=list[PostResponse])
@@ -326,30 +326,30 @@ async def get_posts(db: AsyncSession = Depends(get_db)):
     result = await db.execute(
         select(Post)
         .options(
-            selectinload(Post.author),          # relación N:1 — query separada eficiente
-            selectinload(Post.tags),            # relación M:N
-            joinedload(Post.category),          # relación 1:1 — JOIN en la misma query
+            selectinload(Post.author),          # relaciÃ³n N:1 â€” query separada eficiente
+            selectinload(Post.tags),            # relaciÃ³n M:N
+            joinedload(Post.category),          # relaciÃ³n 1:1 â€” JOIN en la misma query
         )
         .where(Post.is_published == True)
         .order_by(Post.created_at.desc())
     )
     return result.unique().scalars().all()
 
-# ✅ En desarrollo — detectar lazy loading con lazy="raise"
+# âœ… En desarrollo â€” detectar lazy loading con lazy="raise"
 class Post(Base):
     __tablename__ = "posts"
-    author: Mapped["User"] = relationship("User", lazy="raise")  # explota si no cargas eager
+    author: https://github.com/favelasquez
 ```
 
-### 5. Secrets en código fuente
+### 5. Secrets en cÃ³digo fuente
 
 ```python
-# ❌ Secrets hardcodeados — en git para siempre
+# âŒ Secrets hardcodeados â€” en git para siempre
 SECRET_KEY = "mi-clave-super-secreta-123"
 DATABASE_URL = "postgresql://admin:password123@prod-db/myapp"
 AWS_SECRET = "AKIAIOSFODNN7EXAMPLE"
 
-# ✅ Settings con Pydantic v2 — desde variables de entorno
+# âœ… Settings con Pydantic v2 â€” desde variables de entorno
 from pydantic_settings import BaseSettings, SettingsConfigDict
 
 class Settings(BaseSettings):
@@ -366,7 +366,7 @@ class Settings(BaseSettings):
     redis_url: str = "redis://localhost:6379"
     cors_origins: list[str] = ["http://localhost:3000"]
 
-# Singleton con lru_cache — una sola lectura de .env
+# Singleton con lru_cache â€” una sola lectura de .env
 from functools import lru_cache
 
 @lru_cache
@@ -376,38 +376,38 @@ def get_settings() -> Settings:
 settings = get_settings()
 ```
 
-### 6. `response_model` ausente — expone datos internos
+### 6. `response_model` ausente â€” expone datos internos
 
 ```python
-# ❌ Sin response_model — serializa el objeto ORM completo
+# âŒ Sin response_model â€” serializa el objeto ORM completo
 @app.get("/users/{id}")
 async def get_user(id: int, db: AsyncSession = Depends(get_db)):
     user = await db.get(User, id)
     return user  # incluye hashed_password, tokens internos, etc.
 
-# ✅ Con response_model — contrato explícito de la respuesta
+# âœ… Con response_model â€” contrato explÃ­cito de la respuesta
 class UserResponse(BaseModel):
     model_config = ConfigDict(from_attributes=True)
     id: int
     username: str
     email: str
     created_at: datetime
-    # hashed_password NO está aquí — nunca se expone
+    # hashed_password NO estÃ¡ aquÃ­ â€” nunca se expone
 
 @app.get("/users/{id}", response_model=UserResponse)
 async def get_user(id: int, db: AsyncSession = Depends(get_db)):
     user = await db.get(User, id)
     if user is None:
         raise HTTPException(status_code=404, detail="Usuario no encontrado")
-    return user  # FastAPI filtra automáticamente por response_model
+    return user  # FastAPI filtra automÃ¡ticamente por response_model
 ```
 
 ---
 
-## Bug #7 — Type hints rotos en Python 3.8/3.9
+## Bug #7 â€” Type hints rotos en Python 3.8/3.9
 
 ```python
-# ❌ ROMPE en Python 3.8 — TypeError en runtime o error en mypy
+# âŒ ROMPE en Python 3.8 â€” TypeError en runtime o error en mypy
 from fastapi import APIRouter
 router = APIRouter()
 
@@ -422,7 +422,7 @@ async def get_map() -> dict[str, int]:                    # dict[X,Y] solo Pytho
 async def process(value: str | None = None):              # X | Y solo Python 3.10+
     ...
 
-# ✅ CORRECTO para Python 3.8
+# âœ… CORRECTO para Python 3.8
 from typing import List, Dict, Optional
 
 @router.get("/items", response_model=List[ItemResponse])
@@ -436,22 +436,22 @@ async def get_map() -> Dict[str, int]:
 async def process(value: Optional[str] = None):
     ...
 
-# ✅ Alternativa con __future__ — permite sintaxis moderna en hints
-# (solo como strings, no se ejecutan en runtime — sirve para anotaciones)
-from __future__ import annotations   # primera línea del archivo
+# âœ… Alternativa con __future__ â€” permite sintaxis moderna en hints
+# (solo como strings, no se ejecutan en runtime â€” sirve para anotaciones)
+from __future__ import annotations   # primera lÃ­nea del archivo
 
 @router.get("/items")
 async def get_items() -> list[ItemResponse]:  # funciona gracias a __future__
     ...
-# ⚠️ PERO: response_model= se evalúa en runtime — NO beneficia de __future__
+# âš ï¸ PERO: response_model= se evalÃºa en runtime â€” NO beneficia de __future__
 # Siempre usar List[X] en response_model= si el proyecto es Python 3.8
 ```
 
 ---
 
-## Diferencias clave por versión
+## Diferencias clave por versiÃ³n
 
-### FastAPI 0.9x — diferencias vs versiones modernas
+### FastAPI 0.9x â€” diferencias vs versiones modernas
 
 | Feature | FastAPI 0.9x (este proyecto) | FastAPI 0.10x+ |
 |---|---|---|
@@ -459,7 +459,7 @@ async def get_items() -> list[ItemResponse]:  # funciona gracias a __future__
 | `on_event` startup | `@app.on_event("startup")` | `lifespan` context manager |
 | `APIRouter` prefix | Soportado | igual |
 | `response_model` | Soportado | igual |
-| Pydantic bundleado | v1 | v1 o v2 según versión |
+| Pydantic bundleado | v1 | v1 o v2 segÃºn versiÃ³n |
 | `HTTPException` detail | `str` o `dict` | igual |
 
 | Feature | Python 3.8/3.9 | Python 3.10+ | Python 3.12+ |
@@ -474,18 +474,21 @@ async def get_items() -> list[ItemResponse]:  # funciona gracias a __future__
 |---|---|---|
 | ORM compat | `orm_mode = True` en `Config` | `from_attributes = True` en `ConfigDict` |
 | Validators | `@validator` | `@field_validator` |
-| Serialización | `.dict()` | `.model_dump()` |
+| SerializaciÃ³n | `.dict()` | `.model_dump()` |
 | JSON | `.json()` | `.model_dump_json()` |
 | Settings | `BaseSettings` en pydantic | `pydantic-settings` separado |
-| Performance | Base | ~5-50x más rápido |
+| Performance | Base | ~5-50x mÃ¡s rÃ¡pido |
 
 | Feature | SQLAlchemy 1.4 | SQLAlchemy 2.0 |
 |---|---|---|
 | Query style | `session.query(Model)` | `select(Model)` + `session.execute()` |
 | Async session | `AsyncSession` (beta) | `AsyncSession` estable + `async_sessionmaker` |
 | Mapped columns | `Column(Integer)` | `Mapped[int] = mapped_column()` |
-| Lazy loading | Por defecto | `lazy="select"` explícito recomendado |
+| Lazy loading | Por defecto | `lazy="select"` explÃ­cito recomendado |
 
 ---
 
-Leer archivos `references/` para guías completas por área.
+Leer archivos `references/` para guÃ­as completas por Ã¡rea.
+
+
+

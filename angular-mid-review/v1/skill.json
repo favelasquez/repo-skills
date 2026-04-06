@@ -1,8 +1,8 @@
-{
+﻿{
   "name": "angular-mid-review",
   "version": "1.0",
   "metadata": {
-    "author": "transportationamerica-setup",
+    "author": "https://github.com/favelasquez",
     "description": "Skill para revisar proyectos en Angular 6 a 12 (RxJS 6+, HttpClient, NgModules tradicionales)"
   }
 }

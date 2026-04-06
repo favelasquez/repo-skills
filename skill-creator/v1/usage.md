@@ -1,11 +1,11 @@
----
+﻿---
 name: skill-creator
 description: >
   Creates new AI agent skills following the Agent Skills spec.
   Trigger: When user asks to create a new skill, add agent instructions, or document patterns for AI.
 license: Apache-2.0
 metadata:
-  author: transportationamerica-setup
+  author: https://github.com/favelasquez
   version: "1.0"
 scope:
   - skills
@@ -42,24 +42,24 @@ Primero verifica si existe `src/skills/` en el directorio actual:
 ls src/skills 2>/dev/null && echo "REPO_OK" || echo "REPO_NOT_FOUND"
 ```
 
-- Si existe `src/skills/` → crear la skill en `src/skills/{skill-name}/` siguiendo la convención MCP
-- Si NO existe → crear la skill en `.claude/skills/{skill-name}/` como fallback local
+- Si existe `src/skills/` â†’ crear la skill en `src/skills/{skill-name}/` siguiendo la convenciÃ³n MCP
+- Si NO existe â†’ crear la skill en `.claude/skills/{skill-name}/` como fallback local
 
 ### Estructura MCP (`src/skills/`)
 
 ```
 src/skills/{skill-name}/
-├── skill.json              # Root metadata
-└── v1/
-    ├── skill.json          # Version metadata (scope, permissions)
-    └── usage.md            # This file — full skill instructions
+â”œâ”€â”€ skill.json              # Root metadata
+â””â”€â”€ v1/
+    â”œâ”€â”€ skill.json          # Version metadata (scope, permissions)
+    â””â”€â”€ usage.md            # This file â€” full skill instructions
 ```
 
 ### Estructura fallback (`.claude/skills/`)
 
 ```
 .claude/skills/{skill-name}/
-└── SKILL.md                # Single file with frontmatter + instructions
+â””â”€â”€ SKILL.md                # Single file with frontmatter + instructions
 ```
 
 ---
@@ -74,7 +74,7 @@ description: >
   Trigger: {When the AI should load this skill}.
 license: Apache-2.0
 metadata:
-  author: gentleman-programming
+  author: https://github.com/favelasquez
   version: "1.0"
 ---
 
@@ -118,11 +118,11 @@ metadata:
 ## Decision: assets/ vs references/
 
 ```
-Need code templates?        → assets/
-Need JSON schemas?          → assets/
-Need example configs?       → assets/
-Link to existing docs?      → references/
-Link to external guides?    → references/ (with local path)
+Need code templates?        â†’ assets/
+Need JSON schemas?          â†’ assets/
+Need example configs?       â†’ assets/
+Link to existing docs?      â†’ references/
+Link to external guides?    â†’ references/ (with local path)
 ```
 
 **Key Rule**: `references/` should point to LOCAL files, not web URLs.
@@ -182,3 +182,6 @@ After creating the skill, add it to `AGENTS.md`:
 ## Resources
 
 - **Templates**: See [assets/](assets/) for SKILL.md template
+
+
+
