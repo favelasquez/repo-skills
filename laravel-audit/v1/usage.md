@@ -1,4 +1,6 @@
 ---
+metadata:
+  version: "1.0"
 name: laravel-audit
 description: >
   Skill auditora experta de código Laravel 6 hasta Laravel 11, cubriendo Eloquent ORM,

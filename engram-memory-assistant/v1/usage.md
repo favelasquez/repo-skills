@@ -1,5 +1,6 @@
 ---
 metadata:
+  version: "1.0"
   author: https://github.com/favelasquez
 name: engram-memory-assistant
 description: >

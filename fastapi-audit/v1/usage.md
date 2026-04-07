@@ -1,4 +1,6 @@
 ---
+metadata:
+  version: "1.0"
 name: fastapi-audit
 description: >
   Skill auditora experta de código Python con FastAPI, cubriendo todas las versiones
