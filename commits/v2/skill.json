@@ -1,0 +1,17 @@
+{
+  "version": "v2",
+  "scope": [
+    "git",
+    "commits",
+    "conventional-commits"
+  ],
+  "permissions": {
+    "allow": [
+      "repositories"
+    ],
+    "deny": [
+      "filesystem",
+      "database"
+    ]
+  }
+}
